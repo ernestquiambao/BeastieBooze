@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const mongoUri = 'mongodb://localhost/beastie-booze';
+const { DB_USERNAME, DB_PASSWORD } = process.env;
+const mongoUri = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.r3e81.mongodb.net/beastie-booze`;
+console.log({ DB_USERNAME, DB_PASSWORD });
 
 const db = mongoose.connect(mongoUri, {
   useNewUrlParser: true,
