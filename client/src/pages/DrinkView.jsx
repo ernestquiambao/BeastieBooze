@@ -1,19 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
-
+import Review from './Review';
 import axios from 'axios';
 
 import { BoozeContext } from '../boozeContext';
 import { UserContext } from '../userContext';
 
-<<<<<<< HEAD
 import { ingredientParser } from '../../utils/parseIng';
-import Review from './Review.jsx';
-=======
-import { ingredientParser } from '../../utils/parseIng'
 import StarRating from '../components/StarRating.jsx';
->>>>>>> b83ba3748c4b3083f1405199421228113de1f246
 
 const DrinkView = () => {
   // useParams will grab the param passed in url. grabbing drinkId from params.
@@ -104,7 +99,7 @@ const DrinkView = () => {
           </ul>
           <h5>Directions</h5>
           <p>{directions}</p>
-            <StarRating />
+          <StarRating />
           {userButtons()}
           <br></br>
           <br></br>
