@@ -26,13 +26,24 @@ const Review = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [review, setReview] = useState('');
+  const [userReview, setUserReview] = useState('');
 
   const handleReviewChange = (e) => {
     setReview(e.target.value);
   };
-  const submitReview = (review) => {
-    alert('Thank You For Your Feedback!');
+
+  const submitReview = (userReview) => {
+    const { getReviews } = props;
+    const userAndReview = { text: userReview };
+    return axios
+      .post('/')
+      .then(() => {
+        alert('Thank You For Your Feedback!');
+        // getReviews();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -55,7 +66,7 @@ const Review = (props) => {
                   rows='6'
                   cols='50'
                   placeholder='Describe Your Experience'
-                  value={review}
+                  value={userReview}
                   onChange={handleReviewChange}
                 ></textarea>
               </InputGroup>
@@ -69,8 +80,8 @@ const Review = (props) => {
           <Button
             type='button'
             className='btn btn-dark'
-            onClick={(review) => {
-              submitReview(review);
+            onClick={(userReview) => {
+              submitReview(userReview);
               handleClose();
             }}
           >
