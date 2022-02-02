@@ -7,6 +7,7 @@ import { UserContext } from '../userContext'
 
 
 import { ingredientParser } from '../../utils/parseIng'
+import StarRating from '../components/StarRating.jsx';
 
 const DrinkView = () => {
 
@@ -80,6 +81,7 @@ const DrinkView = () => {
           </ul>
           <h5>Directions</h5>
           <p>{directions}</p>
+            <StarRating />
           {userButtons()}
           <br></br>
           <br></br>
