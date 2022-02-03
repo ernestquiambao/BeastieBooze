@@ -14,6 +14,12 @@ const DrinkView = () => {
   // useParams will grab the param passed in url. grabbing drinkId from params.
   const { drinkId } = useParams();
   const [aDrink, setADrink] = useState({});
+  const [reviews, setReviews] = useState([
+    {
+      name: 'Zack',
+      text: 'This drink was incredible and my kids loved it. So refreshing!',
+    },
+  ]);
 
   useEffect(() => {
     axios
@@ -28,6 +34,7 @@ const DrinkView = () => {
 
   const { isLoggedIn, favoriteDrinks, toggleFavorite, removeFavorite } =
     useContext(UserContext);
+  // console.log(UserContext, 31);
 
   // grab what we need from drink object, reassign names
   const {
@@ -38,6 +45,18 @@ const DrinkView = () => {
     strGlass: glass,
     strInstructions: directions,
   } = aDrink;
+
+  // Function to grab all reviews for a given drink
+  const getReviews = () => {
+    return axios
+      .get('/')
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   const removeButton = () => {
     if (favoriteDrinks.includes(name)) {
@@ -67,7 +86,7 @@ const DrinkView = () => {
               Add To Favorites
             </button>
             <div>
-              <Review aDrink={aDrink} />
+              <Review aDrink={aDrink} getReviews={getReviews} />
             </div>
           </span>
           {removeButton()}
@@ -105,8 +124,19 @@ const DrinkView = () => {
           <br></br>
         </div>
       </div>
+      <div>
+        <h2 className='page-heading'>User Reviews:</h2>
+        <div className='form-control'>
+          {reviews.map((review, i) => (
+            <p
+              key={i}
+            >{`${review.text} - ${review.name}, local-time-from-db`}</p>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
-
+/* Will need to map over an array of reviews that we get for a given 
+drink. */
 export default DrinkView;
