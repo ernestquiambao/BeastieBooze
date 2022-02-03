@@ -14,6 +14,7 @@ const DrinkView = () => {
   // useParams will grab the param passed in url. grabbing drinkId from params.
   const { drinkId } = useParams();
   const [aDrink, setADrink] = useState({});
+  // Initial state to be changed once we have a valid network call to get reviews.
   const [reviews, setReviews] = useState([
     {
       name: 'Zack',
