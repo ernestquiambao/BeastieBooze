@@ -10,6 +10,7 @@ import { UserContext } from '../userContext';
 import { ingredientParser } from '../../utils/parseIng';
 import StarRating from '../components/StarRating.jsx';
 
+// Testing deployed instance workflow //
 const DrinkView = () => {
   // useParams will grab the param passed in url. grabbing drinkId from params.
   const { drinkId } = useParams();
