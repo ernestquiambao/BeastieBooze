@@ -9,9 +9,12 @@ import {
   InputGroup,
   FormControl,
 } from 'react-bootstrap';
+import { UserContext } from '../userContext';
 import axios from 'axios';
 
 const Review = (props) => {
+  const { userInfo } = useContext(UserContext);
+  console.log(userInfo, 23);
   const {
     idDrink: id,
     strDrink: name,
@@ -29,14 +32,16 @@ const Review = (props) => {
   const [userReview, setUserReview] = useState('');
 
   const handleReviewChange = (e) => {
-    setReview(e.target.value);
+    e.preventDefault();
+    setUserReview(e.target.value);
   };
-
   const submitReview = (userReview) => {
     const { getReviews } = props;
-    const userAndReview = { text: userReview };
+    const { googleId } = userInfo;
+    const userAndReview = { review: userReview, id: googleId, drinkId: id };
+    console.log(userAndReview, 42);
     return axios
-      .post('/')
+      .post('/routes/users/reviews', userAndReview)
       .then(() => {
         alert('Thank You For Your Feedback!');
         // getReviews();
@@ -80,7 +85,7 @@ const Review = (props) => {
           <Button
             type='button'
             className='btn btn-dark'
-            onClick={(userReview) => {
+            onClick={() => {
               submitReview(userReview);
               handleClose();
             }}

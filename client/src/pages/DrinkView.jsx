@@ -51,7 +51,7 @@ const DrinkView = () => {
   // Function to grab all reviews for a given drink
   const getReviews = () => {
     return axios
-      .get('/')
+      .get(`/routes/users/${drinkId}`)
       .then((data) => {
         console.log(data);
       })
