@@ -75,9 +75,11 @@ usersRouter.patch('/custom/:id', (req, res) => {
     });
 });
 
-usersRouter.patch('/reviews/:id', (req, res) => {
-  const { id, reviews } = req.body;
-  findAndUpdateReviews(id, reviews)
+usersRouter.post('/reviews', (req, res) => {
+  console.log(req.body, 80);
+  const { id, review, drinkId } = req.body;
+  const reviewObj = { review, drinkId };
+  findAndUpdateReviews(id, reviewObj)
     .then((user) => {
       res.status(201).send(user);
     })

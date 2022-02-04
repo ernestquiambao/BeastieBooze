@@ -51,6 +51,7 @@ const findAndDeleteFavorites = async (id, drinkId) => {
 
 // Finds a user by googleId and push a new review into that users reviews field.
 const findAndUpdateReviews = async (id, data) => {
+  console.log(data, 54);
   const updatedUser = await User.findOneAndUpdate(
     { googleId: id },
     { $push: { reviews: data } },
