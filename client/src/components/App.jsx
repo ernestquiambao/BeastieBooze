@@ -32,9 +32,12 @@ const App = () => {
         <Route path='/drink/:drinkId' component={DrinkView} />  {/* // takes a param and dynamically renders a drinkView */}
         <Route exact path='/custom' component={CustomFeed} />
         <Route path='/custom/:drinkId' component={CustomDrinkView} />
-        <Route path='/map' component={<WrappedMap  googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`} loadingElement={<div style={{height:"100%"}} />}
-        containerElement={<div style={{height:"100%"}} />}
-        mapElement={<div style={{height:"100%"}} />}/>}  />
+        <Route path='/map' >
+          <WrappedMap  
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`} loadingElement={<div style={{height:"100%"}} />}
+          containerElement={<div style={{height:"100%"}} />}
+          mapElement={<div style={{height:"100%"}} />} />
+        </Route>
       </Switch>
     </div>
   );
