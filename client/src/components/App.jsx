@@ -13,6 +13,8 @@ import Search from '../pages/Search';
 import CustomFeed from '../pages/CustomFeed';
 import CustomDrinkView from '../pages/CustomDrinkView';
 import Profile from '../pages/Profile';
+import WrappedMap from '../pages/Map.jsx';
+import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps';
 
 const App = () => {
 
@@ -30,6 +32,9 @@ const App = () => {
         <Route path='/drink/:drinkId' component={DrinkView} />  {/* // takes a param and dynamically renders a drinkView */}
         <Route exact path='/custom' component={CustomFeed} />
         <Route path='/custom/:drinkId' component={CustomDrinkView} />
+        <Route path='/map' component={<WrappedMap  googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`} loadingElement={<div style={{height:"100%"}} />}
+        containerElement={<div style={{height:"100%"}} />}
+        mapElement={<div style={{height:"100%"}} />}/>}  />
       </Switch>
     </div>
   );
