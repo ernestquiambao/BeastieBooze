@@ -5,7 +5,8 @@ const {
   findAndUpdate,
   findAndUpdateFavorites,
   findAndDeleteFavorites,
-  findAndUpdateReviews,
+  addReviews,
+  findDrinkReviews,
 } = require('../database/helpers');
 const axios = require('axios');
 const { User } = require('../database/Models');
@@ -75,13 +76,26 @@ usersRouter.patch('/custom/:id', (req, res) => {
     });
 });
 
+// Adds a review to users review field
 usersRouter.post('/reviews', (req, res) => {
-  console.log(req.body, 80);
-  const { id, review, drinkId } = req.body;
-  const reviewObj = { review, drinkId };
-  findAndUpdateReviews(id, reviewObj)
+  const reviewObj = req.body;
+
+  addReviews(reviewObj)
     .then((user) => {
       res.status(201).send(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+// Gets all reviews for a given libation by drinkId lookup.
+usersRouter.get('/getReviews/:id', (req, res) => {
+  const { id } = req.params;
+  findDrinkReviews(id)
+    .then((data) => {
+      res.status(201).send(data);
     })
     .catch((err) => {
       console.error(err);

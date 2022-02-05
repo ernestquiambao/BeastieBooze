@@ -12,9 +12,9 @@ import {
 import { UserContext } from '../userContext';
 import axios from 'axios';
 
-const Review = (props) => {
+const Review = ({ aDrink, getReviews }) => {
   const { userInfo } = useContext(UserContext);
-  console.log(userInfo, 23);
+
   const {
     idDrink: id,
     strDrink: name,
@@ -22,7 +22,7 @@ const Review = (props) => {
     strAlcoholic: alcoholic,
     strGlass: glass,
     strInstructions: directions,
-  } = props.aDrink;
+  } = aDrink;
 
   const [show, setShow] = useState(false);
 
@@ -36,15 +36,19 @@ const Review = (props) => {
     setUserReview(e.target.value);
   };
   const submitReview = (userReview) => {
-    const { getReviews } = props;
-    const { googleId } = userInfo;
-    const userAndReview = { review: userReview, id: googleId, drinkId: id };
-    console.log(userAndReview, 42);
+    const { googleId, username } = userInfo;
+
+    const userAndReview = {
+      review: userReview,
+      id: googleId,
+      drinkId: id,
+      username,
+    };
     return axios
       .post('/routes/users/reviews', userAndReview)
       .then(() => {
         alert('Thank You For Your Feedback!');
-        // getReviews();
+        getReviews();
       })
       .catch((err) => {
         console.error(err);
