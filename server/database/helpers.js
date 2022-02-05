@@ -1,4 +1,4 @@
-const { User, Drink } = require('./Models');
+const { User, Drink, Review } = require('./Models');
 
 // getUser should take a userId and return the found user, empty array or null if not found?
 const getUser = async (id) => {
@@ -49,21 +49,33 @@ const findAndDeleteFavorites = async (id, drinkId) => {
   return updatedUser;
 };
 
-// Finds a user by googleId and push a new review into that users reviews field.
-const findAndUpdateReviews = async (id, data) => {
-  console.log(data, 54);
-  const updatedUser = await User.findOneAndUpdate(
-    { googleId: id },
-    { $push: { reviews: data } },
-    { new: true }
-  );
-  return updatedUser;
+// Adds a review to the review model with information on author, drink and review.
+const addReviews = async (data) => {
+  const reviewList = await Review.create({
+    googleId: data.id,
+    review: data.review,
+    drinkId: data.drinkId,
+    username: data.username,
+  });
+  return reviewList;
 };
+
+// Gets all reviews for a given drink id.
+const findDrinkReviews = async (id) => {
+  const drinkReviews = await Review.find({ drinkId: id });
+  // .populate('Review')
+  // .exec((err) => {
+  //   console.error(err);
+  // });
+  return drinkReviews;
+};
+
 module.exports = {
   getUser,
   createUser,
   findAndUpdate,
   findAndUpdateFavorites,
   findAndDeleteFavorites,
-  findAndUpdateReviews,
+  addReviews,
+  findDrinkReviews,
 };

@@ -19,12 +19,21 @@ mongoose
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
+// Adding review schema. maybe....
+const ReviewSchema = new mongoose.Schema({
+  username: String,
+  googleId: String,
+  review: String,
+  drinkId: Number,
+});
+
+const Review = mongoose.model('Review', ReviewSchema);
+
 const UserSchema = new mongoose.Schema({
   googleId: String, // not sure if this will a string or a number, need to check once we can get data from google
   username: String,
   favorites: [],
   creations: [],
-  reviews: [],
 });
 
 const DrinkSchema = new mongoose.Schema({
@@ -33,18 +42,17 @@ const DrinkSchema = new mongoose.Schema({
   ingredients: {},
   alcoholic: Boolean,
   createdBy: String,
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+    },
+  ],
   //add a createdBy to the drinkSchema to link to Users once created
 });
 
-// Adding review schema. maybe....
-// const ReviewSchema = new mongoose.Schema({
-//   text: String,
-//   createdBy: String,
-// });
-
 const User = mongoose.model('User', UserSchema);
 const Drink = mongoose.model('Drink', DrinkSchema);
-// const Review = mongoose.model('Review', ReviewSchema);
 
 const addDrink = async (drink) => {
   const { drinkName: name, instructions, ingredients, alcoholic } = drink;
@@ -66,5 +74,5 @@ module.exports = {
   Drink,
   addDrink,
   getDrinks,
-  // Review,
+  Review,
 };
