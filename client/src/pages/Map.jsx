@@ -119,14 +119,14 @@ const Map = () => {
         {data.map(store => (
          <Marker 
          position={store.coordinates}
-         onClick={() => 
+         onMouseOver={() => 
          setLiquorStore(store)}/>
   ))}
         {liquorStore && (
    <InfoWindow
-      // onCloseClick={() => {
-      //    setLiquorStore(null);
-      // }}
+      onCloseClick={() => {
+         setLiquorStore(null);
+      }}
       position={liquorStore.coordinates}
    >
      <div>
