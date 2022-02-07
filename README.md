@@ -61,7 +61,8 @@ Pages:
     Users are able to favorite and unfavorite a drink and this is made possible
     through conditions rendering of functional components userButtons and
     removeButton. This is dependent on the state of isLoggedIn coming from
-    userContext.
+    userContext. DrinkView also has a subcomponent that allows users to submit
+    a review.
 5.  CustomDrinkView.jsx is the database equivalent to DrinkView it has much
     of the same features except it receives drink information in different
     formats as it is passed props of drink information using useLocation from
@@ -86,6 +87,14 @@ Pages:
     UserContext. The components which hold this information are UserFavorites and UserCreations.
     When clicking on the name of a favorite or creation the user is navigated to that drinks
     individual view.
+8.  Review.jsx is a user feature that allows the user to input a review for a specific drink they
+    are viewing. This is accomplished by referencing the drink id of the drink object being viewed.
+    When a user clicks the "Submit A Review" button, a modal appears with a text input field and
+    when the review is submitted it is saved to the review model in models.js along with the username
+    with the submitReview function. This function also fires the get request getReviews function that
+    sets the reviews state. The reviews are displayed at the bottom of the DrinkView page with a
+    timestamp that is formatted by a moment.js function. The name of the user is also displayed by
+    referencing the userInfo object from userContext.
 
 Client-Side Helper Functions:
 Client side helper functions are contained within the /client/utils folder:
