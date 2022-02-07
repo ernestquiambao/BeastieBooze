@@ -75,7 +75,7 @@ const DrinkView = () => {
       );
     }
   };
-
+  // if(isLoggedIn){} Will wrap the user buttons once authentication works with deployment.
   const userButtons = () => {
     return (
       <>
@@ -132,9 +132,7 @@ const DrinkView = () => {
         <h2 className='page-heading'>User Reviews:</h2>
         <div style={{ margin: '40px' }}>
           {reviews.map((review, i) => (
-            <p
-              key={i}
-            >{`${review.review} - ${review.username}, ${review.created_at}`}</p>
+            <p key={i}>{`${review.review} - Zack, ${review.created_at}`}</p>
           ))}
         </div>
       </div>
