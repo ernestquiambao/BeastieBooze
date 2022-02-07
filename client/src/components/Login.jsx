@@ -3,7 +3,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { UserContext } from '../userContext';
 
 const clientId =
-  '862811879315-ur20fqc030th5oure5vsmkdg8ll94o8r.apps.googleusercontent.com';
+  '887045813762-u8b69obn37bk7io5if3gn7dsl77iv8u7.apps.googleusercontent.com';
 
 const Login = () => {
   const { loginUser, logoutUser } = useContext(UserContext);
