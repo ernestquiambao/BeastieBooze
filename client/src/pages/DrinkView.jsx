@@ -16,24 +16,7 @@ const DrinkView = () => {
   const { drinkId } = useParams();
   const [aDrink, setADrink] = useState({});
   // Initial state to be changed once we have a valid network call to get reviews.
-  const [reviews, setReviews] = useState([
-    {
-      name: 'Zack',
-      review: 'This drink was incredible and my kids loved it. So refreshing!',
-    },
-  ]);
-
-  useEffect(() => {
-    axios
-      .get(`/routes/drink/${drinkId}`)
-      .then(({ data }) => {
-        setADrink(data.drinks[0]);
-      })
-      .then(() => {
-        getReviews();
-      })
-      .catch((err) => console.error('THIS IS OUR ERROR!', err, drinkId));
-  }, []);
+  const [reviews, setReviews] = useState([]);
 
   const ingredients = ingredientParser(aDrink);
 
@@ -55,7 +38,7 @@ const DrinkView = () => {
     return axios
       .get(`/routes/users/getReviews/${id}`)
       .then(({ data }) => {
-        console.log(data, 56);
+        // console.log(data, 56);
         data.map((rev) => {
           rev.created_at = moment(rev.created_at).format(
             'dddd, MMMM Do YYYY, h:mm a'
@@ -68,6 +51,18 @@ const DrinkView = () => {
         console.error(err);
       });
   };
+
+  useEffect(() => {
+    return axios
+      .get(`/routes/drink/${drinkId}`)
+      .then(({ data }) => {
+        setADrink(data.drinks[0]);
+      })
+      .then(() => {
+        getReviews();
+      })
+      .catch((err) => console.error('THIS IS OUR ERROR!', err, drinkId));
+  }, reviews);
 
   const removeButton = () => {
     if (favoriteDrinks.includes(name)) {
@@ -82,28 +77,26 @@ const DrinkView = () => {
   };
 
   const userButtons = () => {
-    if (isLoggedIn) {
-      return (
-        <>
-          <br></br>
-          <span className='drink-button'>
-            <button
-              type='button'
-              className='btn btn-dark'
-              onClick={() => {
-                toggleFavorite(aDrink);
-              }}
-            >
-              Add To Favorites
-            </button>
-            <div>
-              <Review aDrink={aDrink} getReviews={getReviews} />
-            </div>
-          </span>
-          {removeButton()}
-        </>
-      );
-    }
+    return (
+      <>
+        <br></br>
+        <span className='drink-button'>
+          <button
+            type='button'
+            className='btn btn-dark'
+            onClick={() => {
+              toggleFavorite(aDrink);
+            }}
+          >
+            Add To Favorites
+          </button>
+          <div>
+            <Review aDrink={aDrink} getReviews={getReviews} />
+          </div>
+        </span>
+        {removeButton()}
+      </>
+    );
   };
 
   return (
