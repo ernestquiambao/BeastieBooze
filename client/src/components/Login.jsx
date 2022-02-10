@@ -39,6 +39,7 @@ const Login = () => {
           onSuccess={onLoginSuccess}
           onFailure={onLoginFailure}
           cookiePolicy={'single_host_origin'}
+          redirectUri='http://54.83.145.45.xip.io:8000'
           isSignedIn={true}
         />
       ) : null}
