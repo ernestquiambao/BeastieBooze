@@ -15,7 +15,18 @@ const DrinkView = () => {
   // useParams will grab the param passed in url. grabbing drinkId from params.
   const { drinkId } = useParams();
   const [aDrink, setADrink] = useState({});
+
   // Initial state to be changed once we have a valid network call to get reviews.
+  useEffect(() => {
+    return axios
+      .get(`/routes/drink/${drinkId}`)
+      .then(({ data }) => {
+        console.log(drinkId, 31);
+        setADrink(data.drinks[0]);
+      })
+      .catch((err) => console.error('THIS IS OUR ERROR!', err, drinkId));
+  }, []);
+
   const [reviews, setReviews] = useState([]);
 
   const ingredients = ingredientParser(aDrink);
@@ -36,9 +47,10 @@ const DrinkView = () => {
   // Function to grab all reviews for a given drink
   const getReviews = () => {
     return axios
+
       .get(`/routes/users/getReviews/${id}`)
       .then(({ data }) => {
-        // console.log(data, 56);
+        console.log(id, 56);
         data.map((rev) => {
           rev.created_at = moment(rev.created_at).format(
             'dddd, MMMM Do YYYY, h:mm a'
@@ -52,18 +64,6 @@ const DrinkView = () => {
       });
   };
 
-  useEffect(() => {
-    return axios
-      .get(`/routes/drink/${drinkId}`)
-      .then(({ data }) => {
-        setADrink(data.drinks[0]);
-      })
-      .then(() => {
-        getReviews();
-      })
-      .catch((err) => console.error('THIS IS OUR ERROR!', err, drinkId));
-  }, reviews);
-
   const removeButton = () => {
     if (favoriteDrinks.includes(name)) {
       return (
@@ -75,8 +75,10 @@ const DrinkView = () => {
       );
     }
   };
-  if (isLoggedIn) {
-    const userButtons = () => {
+  // console.log(isLoggedIn, 79);
+
+  const userButtons = () => {
+    if (isLoggedIn) {
       return (
         <>
           <br></br>
@@ -97,8 +99,8 @@ const DrinkView = () => {
           {removeButton()}
         </>
       );
-    };
-  }
+    }
+  };
 
   return (
     <div className='container'>
