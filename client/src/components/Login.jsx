@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogout } from 'react-google-login';
 import { UserContext } from '../userContext';
+import { GoogleLogin } from '@react-oauth/google';
 
-const clientId =
-  '972420547961-eq4nqgufdoqunp117psu13cjpj2fml8q.apps.googleusercontent.com';
+// const clientId =
+//   '972420547961-eq4nqgufdoqunp117psu13cjpj2fml8q.apps.googleusercontent.com';
 
 const Login = () => {
   const { loginUser, logoutUser } = useContext(UserContext);
@@ -34,12 +35,12 @@ const Login = () => {
     <div>
       {showLoginButton ? (
         <GoogleLogin
-          clientId={clientId}
-          buttonText='Login'
-          onSuccess={onLoginSuccess}
-          onFailure={onLoginFailure}
-          cookiePolicy={'single_host_origin'}
-          isSignedIn={true}
+        onSuccess={credentialResponse => {
+          console.log(credentialResponse);
+        }}
+        onError={() => {
+          console.log('Login Failed');
+        }}
         />
       ) : null}
 
