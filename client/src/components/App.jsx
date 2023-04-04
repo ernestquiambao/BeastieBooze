@@ -8,7 +8,8 @@ import Navbar from './Navbar';
 import Create from '../pages/Create';
 import Feed from '../pages/Feed';
 import DrinkView from '../pages/DrinkView';
-import Login from '../components/Login';
+// import Login from '../components/Login';
+import AuthPage from '../components/Login';
 import Search from '../pages/Search';
 import CustomFeed from '../pages/CustomFeed';
 import CustomDrinkView from '../pages/CustomDrinkView';
@@ -27,7 +28,7 @@ const App = () => {
         <Route exact path='/' component={Feed} />
         <Route exact path='/create' component={Create} />
         <Route exact path='/search' component={Search} />
-        <Route path='/login' component={Login} />
+        <Route path='/login' component={AuthPage} />
         <Route path='/profile/:userId' component={Profile} />
         <Route path='/drink/:drinkId' component={DrinkView} />  {/* // takes a param and dynamically renders a drinkView */}
         <Route exact path='/custom' component={CustomFeed} />

@@ -9,7 +9,7 @@ const db = mongoose.connect(mongoUri, {
   useUnifiedTopology: true,
   useFindAndModify: true
 
-});
+  });
 
 module.exports = {
   db,
