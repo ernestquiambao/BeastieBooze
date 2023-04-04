@@ -47,6 +47,9 @@ const Navbar = () => {
             </li>
             : null
           }
+          <li className="map-box">
+            <Link to="/mapbox" className="nav-link">Walk it off, Buddy</Link>
+          </li>
         </ul>
         {username ?
               <li className="nav-item">

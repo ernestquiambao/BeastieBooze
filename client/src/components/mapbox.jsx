@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+//  add mapbox token when it arrives (ernest)
 const mapbox = () => {
 
     return (
