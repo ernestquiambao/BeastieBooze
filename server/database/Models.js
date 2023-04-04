@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 ////////////////////////////////////////////////////////
 const DATABASE = process.env.DB_NAME || 'beastie-booze';
 // for dev - uncomment the next line and comment out line 10
-// const dbLocation = `mongodb://localhost:27017/${DATABASE}`;
+ //const dbLocation = `mongodb://localhost:27017/${DATABASE}`;
 // for prod
 const dbLocation = `${process.env.ATLAS_URL}/${DATABASE}`;
 // const dbLocation = process.env.ATLAS_URL;
