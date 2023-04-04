@@ -15,6 +15,7 @@ import CustomFeed from '../pages/CustomFeed';
 import CustomDrinkView from '../pages/CustomDrinkView';
 import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 const App = () => {
