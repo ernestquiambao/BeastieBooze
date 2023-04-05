@@ -18,7 +18,7 @@ import WrappedMap from '../pages/Map.jsx';
 import Breweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
 
-import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
 import Mapbox from './mapbox';
 
 
