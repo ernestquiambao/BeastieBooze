@@ -21,4 +21,4 @@ function eventCalendar(){
 
    }
 
-   export default Calendar
+   export default eventCalendar
