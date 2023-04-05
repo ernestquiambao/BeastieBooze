@@ -58,27 +58,33 @@ const Navbar = () => {
             </Link>
           </li>
 
+          <li className='nav-item'>
+            <Link to='/beer/breweries' className='nav-link'>
+              Where Dat Brewery?
+            </Link>
+          </li>
+          <li>
+            <Link to='/calendar' className='nav-link'>
+              My Events
+              </li>
+              
+               <li className='map-box'>
+            <Link to='/mapbox' className='nav-link'>
+              Walk it off, Buddy
+              </li>
+
+
           {isLoggedIn ? (
             <li className='nav-item'>
               <Link to='/create' className='nav-link'>
                 Submit
               </Link>
-
-          <li className="nav-item">
-          <Link to="/beer/breweries" className="nav-link">Where Dat Brewery?</Link>
-            <Link to="/calendar" className="nav-link">My Events</Link>
-          </li>
-          {isLoggedIn ?
-            <li className="nav-item">
-              <Link to="/create" className="nav-link">Submit</Link>
-            </li>
+              </li>
           ) : null}
-          <li className='map-box'>
-            <Link to='/mapbox' className='nav-link'>
-              Walk it off, Buddy
-            </Link>
-          </li>
         </ul>
+        
+           
+
         {username ? (
           <li className='nav-item'>
             <Link to={`/profile/${userInfo.googleId}`}>
@@ -88,6 +94,7 @@ const Navbar = () => {
             </Link>
           </li>
         ) : null}
+
         <li className='nav-item login-nav'>
           <div
             className='nav-link btn-nav'
