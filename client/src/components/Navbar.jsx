@@ -68,12 +68,12 @@ const Navbar = () => {
               My Events
             </Link>
           </li>
-          <li className='map-box'>
+          <li className='nav-item'>
             <Link to='/mapbox' className='nav-link'>
               Walk it off, Buddy
             </Link>
           </li>
-          <li className='quiz'>
+          <li className='nav-item'>
             <Link to='/quiz' className='nav-link'>
               Alcohol Quiz
             </Link>
