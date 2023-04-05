@@ -13,7 +13,7 @@ feedRouter.get('/mocktails', (req, res) => {
       res.status(200).send(mocktails);
     })
     .catch((err) => {
-      console.error(err);
+      console.error();
       res.sendStatus(500);
     });
 });
@@ -24,7 +24,7 @@ feedRouter.get('/', (req, res) => {
       res.status(200).send(data.drinks);
     })
     .catch((err) => {
-      console.error(err);
+    //  console.error(err);
       res.sendStatus(500);
     });
 });

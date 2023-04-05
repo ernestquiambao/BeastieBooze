@@ -43,6 +43,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
           <Link to="/beer/breweries" className="nav-link">Where Dat Brewery?</Link>
+            <Link to="/calendar" className="nav-link">My Events</Link>
           </li>
           {isLoggedIn ?
             <li className="nav-item">
@@ -50,6 +51,9 @@ const Navbar = () => {
             </li>
             : null
           }
+          <li className="map-box">
+            <Link to="/mapbox" className="nav-link">Walk it off, Buddy</Link>
+          </li>
         </ul>
         {username ?
               <li className="nav-item">
