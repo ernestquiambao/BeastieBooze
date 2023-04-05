@@ -17,6 +17,10 @@ import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
 import Breweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
+import Quiz from './Quiz';
+import Mapbox from '../pages/Mapbox';
+
+
 
 const App = () => {
   // using react router to conditionally render views
@@ -47,6 +51,9 @@ const App = () => {
         </Route>
         <Route path='/mapbox' component={Mapbox} />
         <Route path='/beer/breweries' component={Breweries} />
+
+        <Route path='/quiz' component={Quiz} />
+
       </Switch>
     </div>
   );

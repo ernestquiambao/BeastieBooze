@@ -75,7 +75,11 @@ const Navbar = () => {
             </Link>
           </li>
 
-         
+          <li className='nav-item'>
+            <Link to='/quiz' className='nav-link'>
+              Alcohol Quiz
+            </Link>
+          </li>
 
           {isLoggedIn ? (
             <li className='nav-item'>
@@ -85,7 +89,6 @@ const Navbar = () => {
             </li>
           ) : null}
         </ul>
-
 
         {username ? (
           <li className='nav-item'>
