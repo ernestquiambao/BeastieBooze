@@ -15,6 +15,8 @@ import CustomFeed from '../pages/CustomFeed';
 import CustomDrinkView from '../pages/CustomDrinkView';
 import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
+import eventCalendar from '../pages/Calendar';
+
 
 
 const App = () => {
@@ -33,6 +35,7 @@ const App = () => {
         <Route path='/drink/:drinkId' component={DrinkView} />  {/* // takes a param and dynamically renders a drinkView */}
         <Route exact path='/custom' component={CustomFeed} />
         <Route path='/custom/:drinkId' component={CustomDrinkView} />
+        <Route path='/calendar' component={eventCalendar} />
         <Route path='/map' >
           <div style={{width: '100vw', height: '100vh'}}>
           <WrappedMap  

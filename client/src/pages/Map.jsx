@@ -141,7 +141,7 @@ const Map = () => {
   )
 }
 
-//**** 
+//****
 const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 export default WrappedMap;
