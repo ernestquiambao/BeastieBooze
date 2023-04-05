@@ -57,6 +57,7 @@ const Navbar = () => {
               Find My Booze
             </Link>
           </li>
+
           <li className='nav-item'>
             <Link to='/beer/breweries' className='nav-link'>
               Where Dat Brewery?
@@ -65,22 +66,24 @@ const Navbar = () => {
           <li>
             <Link to='/calendar' className='nav-link'>
               My Events
-            </Link>
-          </li>
-          <li className='nav-item'>
+              </li>
+              
+               <li className='map-box'>
             <Link to='/mapbox' className='nav-link'>
               Walk it off, Buddy
-            </Link>
-          </li>
+              </li>
+
 
           {isLoggedIn ? (
             <li className='nav-item'>
               <Link to='/create' className='nav-link'>
                 Submit
               </Link>
-            </li>
+              </li>
           ) : null}
         </ul>
+        
+           
 
         {username ? (
           <li className='nav-item'>
