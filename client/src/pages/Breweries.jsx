@@ -8,9 +8,8 @@ const Breweries = () => {
   // const [brewery, setBrewery] = useState(null);
 
   const requestHandler = () => {
-    axios
-      .get('/beer/breweries', {
-        params: { by_state: 'NY' },
+    axios.get('/routes/beer/breweries', {
+        params: { by_city: 'new_orleans' },
       })
       .then((response) => {
         console.log('Successful GET', response);

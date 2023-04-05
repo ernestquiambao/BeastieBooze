@@ -16,7 +16,7 @@ import CustomDrinkView from '../pages/CustomDrinkView';
 import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
 import Breweries from '../pages/Breweries.jsx';
-import eventCalendar from '../pages/Calendar';
+import eventCalendar from '../pages/Calendar.jsx';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
