@@ -19,6 +19,7 @@ import Breweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Mapbox from './mapbox';
 
 
 const App = () => {
@@ -46,6 +47,9 @@ const App = () => {
           mapElement={<div style={{height:"100%"}} />} />
           </div>
         </Route>
+
+        <Route exact path='/mapbox' component={Mapbox} />
+
         <Route path='/beer/breweries' component={Breweries} />
 
       </Switch>
