@@ -17,8 +17,6 @@ import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
 import Breweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar';
-
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import Mapbox from './mapbox';
 
 
@@ -47,9 +45,7 @@ const App = () => {
           mapElement={<div style={{height:"100%"}} />} />
           </div>
         </Route>
-
         <Route exact path='/mapbox' component={Mapbox} />
-
         <Route path='/beer/breweries' component={Breweries} />
 
       </Switch>
