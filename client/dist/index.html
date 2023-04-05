@@ -1,38 +1,25 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Beastie Booze</title>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300&display=swap" rel="stylesheet">
     <link
-      href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
-      rel="stylesheet"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+    crossorigin="anonymous"
     />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="stylesheet" href="./styles/styles.css">
   </head>
 
   <body>
     <div id="app">
       <script src="./bundle.js"></script>
-      <div id="map" style="width: 400px; height: 300px"></div>
-      <script>
-        mapboxgl.accessToken =
-          'pk.eyJ1IjoiZXJuZXN0cSIsImEiOiJjbGczMGV3Y3EwYWx4M21wcG1ydmJ4cm45In0.y0qtGR3RflrtJGHnXafZXg';
-        var map = new mapboxgl.Map({
-          container: 'map',
-          style: 'mapbox://styles/mapbox/streets-v11',
-        });
-      </script>
     </div>
   </body>
+
 </html>
