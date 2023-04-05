@@ -17,7 +17,6 @@ import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
 import Breweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
-import Mapbox from '../pages/Mapbox';
 
 const App = () => {
   // using react router to conditionally render views
