@@ -63,7 +63,8 @@ const Navbar = () => {
               Where Dat Brewery?
             </Link>
           </li>
-          <li>
+
+          <li className='nav-item'>
             <Link to='/calendar' className='nav-link'>
               My Events
             </Link>
@@ -73,6 +74,7 @@ const Navbar = () => {
               Walk it off, Buddy
             </Link>
           </li>
+
           <li className='nav-item'>
             <Link to='/quiz' className='nav-link'>
               Alcohol Quiz
