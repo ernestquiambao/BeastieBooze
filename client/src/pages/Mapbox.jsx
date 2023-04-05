@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactMapGL from 'react-map-gl';
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 //  AIzaSyBJbqpVzrxAa91WCUv6Y0GdKOjkSN3rEC8
 //  add mapbox token when it arrives (ernest)
