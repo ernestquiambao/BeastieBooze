@@ -24,7 +24,7 @@ feedRouter.get('/', (req, res) => {
       res.status(200).send(data.drinks);
     })
     .catch((err) => {
-      console.error(err);
+    //  console.error(err);
       res.sendStatus(500);
     });
 });

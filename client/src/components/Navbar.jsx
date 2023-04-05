@@ -41,6 +41,9 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/map" className="nav-link">Find My Booze</Link>
           </li>
+          <li className="nav-item">
+            <Link to="/calendar" className="nav-link">My Events</Link>
+          </li>
           {isLoggedIn ?
             <li className="nav-item">
               <Link to="/create" className="nav-link">Submit</Link>
