@@ -4,7 +4,7 @@ import { UserContext } from '../userContext';
 import { gapi } from 'gapi-script';
 
 const googleId =
-  '457646205065-4askqot96hvs0fjovvbltcigm32sded9.apps.googleusercontent.com';
+  '244521963408-via03qhpmjh7kpcbc9a572i4d9uo5qkb.apps.googleusercontent.com';
 
 function AuthPage() {
   const { loginUser, logoutUser } = useContext(UserContext);

@@ -1,4 +1,4 @@
-const { User, Drink, Review } = require('./Models');
+const { User, Drink, Review, CalEntry } = require('./Models');
 
 // getUser should take a userId and return the found user, empty array or null if not found?
 const getUser = async (id) => {

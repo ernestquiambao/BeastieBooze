@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 ////////////////////////////////////////////////////////
 const DATABASE = process.env.DB_NAME || 'beastie-booze';
 // for dev - uncomment the next line and comment out line 10
-// const dbLocation = `mongodb://localhost:27017/${DATABASE}`;
+ //const dbLocation = `mongodb://localhost:27017/${DATABASE}`;
 // for prod
 const dbLocation = `${process.env.ATLAS_URL}/${DATABASE}`;
 // const dbLocation = process.env.ATLAS_URL;
@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 const DrinkSchema = new mongoose.Schema({
-  name: String,
+  name: {type:String, unique: true},
   instructions: String,
   ingredients: {},
   alcoholic: Boolean,
@@ -54,8 +54,21 @@ const DrinkSchema = new mongoose.Schema({
   //add a createdBy to the drinkSchema to link to Users once created
 });
 
+
+const CalendarEntrySchema = new mongoose.Schema({
+name: String,
+date: String,
+type: String,
+description: String,
+time: String,
+location: String,
+invited: Array,
+
+})
+
 const User = mongoose.model('User', UserSchema);
 const Drink = mongoose.model('Drink', DrinkSchema);
+const CalEntry = mongoose.model('CalEntry', CalendarEntrySchema);
 
 const addDrink = async (drink) => {
   const { drinkName: name, instructions, ingredients, alcoholic } = drink;
@@ -72,9 +85,29 @@ const getDrinks = async () => {
   return await Drink.find({}).exec();
 };
 
+const addCalEntry = async (entry) => {
+  const newEntry = new CalEntry({
+    name: entry.name,
+    date: entry.date,
+    type: entry.type,
+    description: entry.description,
+    time: entry.time,
+    location: entry.location,
+    invited:[]
+
+  });
+  await newEntry.save();
+};
+
+const getCalEntry = async () => {
+  return await Drink.find({}).exec();
+};
+
 module.exports = {
   User,
   Drink,
+  CalEntry,
+  addCalEntry,
   addDrink,
   getDrinks,
   Review,
