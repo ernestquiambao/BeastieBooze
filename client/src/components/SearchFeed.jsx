@@ -26,7 +26,7 @@ const SearchFeed = () => {
       </div>
     )
   } else {
-    return ( 
+    return (
     <div>
         <h4 className="sub-heading"> Sorry We Found No Results </h4>
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GoogleMap, withScriptjs, withGoogleMap, InfoWindow, Marker } from  'react-google-maps'; 
 import axios from 'axios';
 
-//in order for map to render propeerly in app, it needs to be wrapped by a couple other functions. instead of adding a  couple of high order components, see implementation at ****
+//in order for map to render properly in app, it needs to be wrapped by a couple other functions. instead of adding a  couple of high order components, see implementation at ****
 const Map = () => {
 //on click of a marker in the map, set the state to that store so the InfoWindow can be rendered
   const [liquorStore, setLiquorStore] = useState(null);
