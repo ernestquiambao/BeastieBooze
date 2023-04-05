@@ -15,6 +15,7 @@ import CustomFeed from '../pages/CustomFeed';
 import CustomDrinkView from '../pages/CustomDrinkView';
 import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
+import Breweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -39,12 +40,14 @@ const App = () => {
         <Route path='/calendar' component={eventCalendar} />
         <Route path='/map' >
           <div style={{width: '100vw', height: '100vh'}}>
-          <WrappedMap 
+          <WrappedMap
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAkS-j4nr_o5bz4wUV8Dm9Dk-2rLHJp7nA`} loadingElement={<div style={{height:"100%"}} />}
           containerElement={<div style={{height:"100%"}} />}
           mapElement={<div style={{height:"100%"}} />} />
           </div>
         </Route>
+        <Route path='/beer/breweries' component={Breweries} />
+
       </Switch>
     </div>
   );

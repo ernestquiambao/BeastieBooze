@@ -42,6 +42,7 @@ const Navbar = () => {
             <Link to="/map" className="nav-link">Find My Booze</Link>
           </li>
           <li className="nav-item">
+          <Link to="/beer/breweries" className="nav-link">Where Dat Brewery?</Link>
             <Link to="/calendar" className="nav-link">My Events</Link>
           </li>
           {isLoggedIn ?
