@@ -60,7 +60,8 @@ name: String,
 date: String,
 type: String,
 description: String,
-time: String,
+startTime: {type:String, unique: true },
+endTime: String,
 location: String,
 invited: Array,
 
@@ -91,8 +92,10 @@ const addCalEntry = async (entry) => {
     date: entry.date,
     type: entry.type,
     description: entry.description,
-    time: entry.time,
+    startTime: entry.startTime,
+    endTime: entry.endTime,
     location: entry.location,
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     invited:[]
 
   });
@@ -100,7 +103,7 @@ const addCalEntry = async (entry) => {
 };
 
 const getCalEntry = async () => {
-  return await Drink.find({}).exec();
+  return await CalEntry.find({}).exec();
 };
 
 module.exports = {
