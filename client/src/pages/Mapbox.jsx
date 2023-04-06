@@ -28,7 +28,7 @@ npm install regenerator-runtime --legacy-peer-deps
 
 const Mapbox = () => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyBJbqpVzrxAa91WCUv6Y0GdKOjkSN3rEC8',
+    googleMapsApiKey: "AIzaSyBJbqpVzrxAa91WCUv6Y0GdKOjkSN3rEC8",
     libraries: ['places'],
   });
 
