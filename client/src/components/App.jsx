@@ -17,17 +17,16 @@ import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
 import Breweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
+import Quiz from './Quiz';
+import Mapbox from '../pages/Mapbox';
 
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import Mapbox from './mapbox';
 
 
 const App = () => {
-
   // using react router to conditionally render views
 
   return (
-    <div className="app-body">
+    <div className='app-body'>
       <Navbar />
       <Switch>
         <Route exact path='/' component={Feed} />
@@ -35,16 +34,19 @@ const App = () => {
         <Route exact path='/search' component={Search} />
         <Route path='/login' component={AuthPage} />
         <Route path='/profile/:userId' component={Profile} />
-        <Route path='/drink/:drinkId' component={DrinkView} />  {/* // takes a param and dynamically renders a drinkView */}
+        <Route path='/drink/:drinkId' component={DrinkView} />{' '}
+        {/* // takes a param and dynamically renders a drinkView */}
         <Route exact path='/custom' component={CustomFeed} />
         <Route path='/custom/:drinkId' component={CustomDrinkView} />
         <Route path='/calendar' component={eventCalendar} />
-        <Route path='/map' >
-          <div style={{width: '100vw', height: '100vh'}}>
-          <WrappedMap
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAkS-j4nr_o5bz4wUV8Dm9Dk-2rLHJp7nA`} loadingElement={<div style={{height:"100%"}} />}
-          containerElement={<div style={{height:"100%"}} />}
-          mapElement={<div style={{height:"100%"}} />} />
+        <Route path='/map'>
+          <div style={{ width: '100vw', height: '100vh' }}>
+            <WrappedMap
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAkS-j4nr_o5bz4wUV8Dm9Dk-2rLHJp7nA`}
+              loadingElement={<div style={{ height: '100%' }} />}
+              containerElement={<div style={{ height: '100%' }} />}
+              mapElement={<div style={{ height: '100%' }} />}
+            />
           </div>
         </Route>
 
@@ -59,10 +61,13 @@ const App = () => {
           </div>
         </Route>
 
+
+        <Route path='/mapbox' component={Mapbox} />
+        <Route path='/quiz' component={Quiz} />
+
       </Switch>
     </div>
   );
-
 };
 
 export default App;
