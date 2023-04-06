@@ -5,6 +5,7 @@ const { customRouter } = require('./customFeed.js');
 const { usersRouter } = require('./users.js');
 const { brewRouter } = require('./breweryRoute.js');
 const { calEntryRouter } = require('./calendarSearch.js');
+const { quizRouter } = require('./quiz.js');
 
 module.exports = (app) => {
   app.use(`/routes/feed/`, feedRouter),
@@ -14,4 +15,6 @@ module.exports = (app) => {
   app.use('/routes/users/', usersRouter)
   app.use('/routes/beer/', brewRouter),
   app.use('/routes/calendar/', calEntryRouter);
+  app.use('/routes/beer/', brewRouter);
+  app.use('/routes/quiz/', quizRouter);
 };
