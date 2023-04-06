@@ -1,33 +1,35 @@
 import React, { useState} from 'react';
+import moment from 'moment';
 
 
 
+const time = []
 
-const time = ['08:00','09:00','10:00','14:00','15:00']
 
-function Times({entryTime}) {
+for(let hour = 0; hour < 24; hour++) {
+   time.push(moment({ hour }).format('h:mm A'));
+   time.push(
+        moment({
+            hour,
+            minute:30
 
- const [event, setEvent] = useState(null)
- const [info, setInfo] = useState(false)
-
- function displayInfo(e) {
-   setInfo(true);
-   setEvent(e.target.innerText);
+        }).format('h:mm A')
+    );
 }
+
+function Times({entryDate}) {
+
+
+
 
 return (
 
  <div className="times">
-   {time.map(times => {
-    return (
-    <div>
-      <button onClick={(e)=> displayInfo(e)}> {times} </button>
-    </div>
-        )
+  <select>
+   {time.map((times, index) => {
+    return <option entryDate ={entryDate} key={index}>{times}</option>
      })}
-    <div>
-      {info ? `Your appointment is set to ${event} ${entryTime.date.toDateString()}` : null}
-    </div>
+    </select>
  </div>
   )
 }
