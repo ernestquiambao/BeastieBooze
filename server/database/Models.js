@@ -64,12 +64,21 @@ startTime: {type:String, unique: true },
 endTime: String,
 location: String,
 invited: Array,
+})
 
+
+const BarCrawlSchema = new mongoose.Schema({
+  name: String,
+  street: String,
+  city: String,
+  zipCode: String,
+  breweryList: Array,
 })
 
 const User = mongoose.model('User', UserSchema);
 const Drink = mongoose.model('Drink', DrinkSchema);
 const CalEntry = mongoose.model('CalEntry', CalendarEntrySchema);
+const BarCrawl = mongoose.model('BarCrawl', BarCrawlSchema)
 
 const addDrink = async (drink) => {
   const { drinkName: name, instructions, ingredients, alcoholic } = drink;
@@ -106,6 +115,14 @@ const getCalEntry = async () => {
   return await CalEntry.find({}).exec();
 };
 
+// const addBrewery = async (brewery) => {
+//   const newBrewery = new BarCrawl({
+//     name: brewery.name,
+//     breweryList: brewery.breweryList,
+//   })
+//   await newBrewery.save();
+// }
+
 module.exports = {
   User,
   Drink,
@@ -114,4 +131,6 @@ module.exports = {
   addDrink,
   getDrinks,
   Review,
+  BarCrawl,
+  // addBrewery,
 };

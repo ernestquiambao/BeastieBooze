@@ -60,7 +60,7 @@ const Navbar = () => {
 
           <li className='nav-item'>
             <Link to='/breweries' className='nav-link'>
-              Where Dat Brewery?
+              Where Dat Beer?
             </Link>
           </li>
 

@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const dotenv = require('dotenv');
 const axios = require('axios');
+const { addBrewery } = require('../database/helpers');
 
 const brewRouter = Router();
 
@@ -24,5 +25,10 @@ brewRouter.get('/breweries', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+brewRouter.post('/breweries', (req, res) => {
+  console.log(req)
+})
 
 module.exports = { brewRouter };

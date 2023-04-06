@@ -8,13 +8,14 @@ import {
 } from 'react-google-maps';
 import axios from 'axios';
 
-const Breweries = () => {
+const Breweries = (props) => {
   //set state with React hooks
 
   const [searchedCity, setCity] = useState(null);
   const [breweries, setBreweries] = useState([]);
   const [eachBrewery, setEachBrewery] = useState(null);
-  console.log('WHAT UP DOG', breweries);
+  const [barCrawl, setBarCrawl] = useState([]);
+  console.log('WHAT UP DOG', eachBrewery);
 
   const requestHandler = () => {
     axios
@@ -47,8 +48,67 @@ const Breweries = () => {
       });
   };
 
+  const handleClick = () => {
+    setBarCrawl([...barCrawl, eachBrewery]);
+    setEachBrewery(null);
+  };
+
+  // const handleBreweryClick = (brewery) => {
+  //   setEachBrewery(brewery);
+  // };
+
+  // const addToBarCrawl = () => {
+  //   breweries.forEach(brewery => {
+  //     if (brewery.name === eachBrewery.name) {
+  //       setBarCrawl(eachBrewery => [...eachBrewery])
+  //     }
+  //   })
+
+  // }
+
+  // const saveBrewery = () => {
+  //   const { name, address_1, city, postal_code} = eachBrewery
+  //   axios.post('/routes/beer/breweries', {
+  //     name: name,
+  //     street: address_1,
+  //     city: city,
+  //     zipCode: postal_code,
+  //   })
+  // };
+
   return (
     <div>
+      <div>
+        <div>
+          <h3>Bar Crawl</h3>
+        </div>
+        <div>
+        {eachBrewery && (
+          <div onClick={handleClick}>
+            {Object.entries(eachBrewery).map(([key, value]) => {
+              if (key === 'coordinates') {
+                delete [key, value];
+              }
+              <div key={key}>
+                {key}: {value}
+              </div>
+            })}
+          </div>
+        )}
+      </div>
+      <div>
+        {barCrawl.map((bar, index) => (
+          <div key={index} onClick={() => setEachBrewery(bar)}>
+            {Object.entries(bar).map(([key, value]) => (
+              <div key={key}>
+                {key}: {value}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      </div>
+
       <div>
         <h3>Breweries</h3>
       </div>
@@ -101,6 +161,7 @@ const Breweries = () => {
               }
             />
           ))}
+
           {eachBrewery && (
             <InfoWindow
               onCloseClick={() => {
@@ -113,6 +174,7 @@ const Breweries = () => {
                 <p>{eachBrewery.address_1}</p>
                 <p>{eachBrewery.city}</p>
                 <p>{eachBrewery.postal_code}</p>
+                <button type="button"></button>
               </div>
             </InfoWindow>
           )}
