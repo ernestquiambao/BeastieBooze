@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import questions from '../../questions'
-
+import LeaderBoard from './Leaderboard';
 
 function Quiz() {
 
@@ -92,6 +92,7 @@ const restartGame = () => {
       </ul>
       </div>
     )}
+    <LeaderBoard />
     </div>
   );
 }
