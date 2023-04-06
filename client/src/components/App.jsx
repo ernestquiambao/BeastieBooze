@@ -19,7 +19,6 @@ import WrappedMap from '../pages/Map.jsx';
 import WrappedBreweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
 import Quiz from './Quiz';
-import Mapbox from '../pages/Mapbox';
 import GoogleMap from '../pages/GoogleMap';
 
 const App = () => {
@@ -49,7 +48,7 @@ const App = () => {
             />
           </div>
         </Route>
-        <Route exact path='/mapbox' component={GoogleMap} />
+        <Route exact path='/googleMap' component={GoogleMap} />
         {/* <Route path='/beer/breweries' component={Breweries}> */}
         <Route path='/beer/breweries'>
           <div>
@@ -66,7 +65,6 @@ const App = () => {
             </div>
           </div>
         </Route>
-        <Route path='/mapbox' component={Mapbox} />
         <Route path='/quiz' component={Quiz} />
       </Switch>
     </div>
