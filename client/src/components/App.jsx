@@ -50,7 +50,7 @@ const App = () => {
         </Route>
         <Route exact path='/mapbox' component={Mapbox} />
         {/* <Route path='/beer/breweries' component={Breweries}> */}
-        <Route path='/beer/breweries'>
+        <Route path='/breweries'>
           <div>
             <div>
               <h3>Breweries</h3>
