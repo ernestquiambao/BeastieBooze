@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, DirectionsRenderer, DirectionsService } from '@react-google-maps/api';
 import { Loader } from '@googlemaps/js-api-loader';
 
 const GoogleMapDirections = () => {
