@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleMap, withScriptjs, withGoogleMap, InfoWindow, Marker } from  'react-google-maps'; 
+import { GoogleMap, withScriptjs, withGoogleMap, InfoWindow, Marker } from  'react-google-maps';
 import axios from 'axios';
 
 //in order for map to render properly in app, it needs to be wrapped by a couple other functions. instead of adding a  couple of high order components, see implementation at ****
@@ -34,7 +34,7 @@ const Map = () => {
       lat: 29.9221002,
       lng: -90.0907571
     },},
-    { 
+    {
       storeName: 'Elios Wine Warehouse',
       address: '6205 S Miro St, New Orleans, LA 70125',
       link: 'https://www.google.com/maps/dir//6205+S+Miro+St,+New+Orleans,+LA+70125/@29.9467161,-90.1829043,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x8620a50a6d638095:0x1e42d19e067cf9dc!2m2!1d-90.1126919!2d29.946586',
@@ -117,9 +117,9 @@ const Map = () => {
       defaultZoom={10}
       defaultCenter={{lat:29.951065, lng:-90.071533}}>
         {data.map(store => (
-         <Marker 
+         <Marker
          position={store.coordinates}
-         onMouseOver={() => 
+         onMouseOver={() =>
          setLiquorStore(store)}/>
   ))}
         {liquorStore && (
