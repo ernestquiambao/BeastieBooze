@@ -1,23 +1,23 @@
-const { Router } = require("express");
+const { Router } = require('express');
 // const router = require('express').Router();
 const dotenv = require('dotenv');
 const axios = require('axios');
+// const stringify = require('json-stringify-safe');
 
 // dotenv.config();
 
 const brewRouter = Router();
 
 brewRouter.get('/breweries', (req, res) => {
+  const { by_city } = req.query;
 
-  console.log('HELLLOOOOO', req);
+  // console.log('HELLLOOOOO', req);
 
   const options = {
     method: 'GET',
     url: 'https://api.openbrewerydb.org/v1/breweries',
-    params: {by_city: 'new_orleans'},
-
+    params: { by_city },
   };
-
 
   // const options = {
   //   method: 'GET',
@@ -29,17 +29,16 @@ brewRouter.get('/breweries', (req, res) => {
   //   }
   // };
 
-  axios.request(options)
-    .then(function (response) {
-      console.log(response.data);
-      res.status(200).send(response);
-     })
-    .catch(function (error) {
+  axios
+    .request(options)
+    .then(({ data }) => {
+      console.log('HELLO', data);
+      res.status(200).send(data);
+    })
+    .catch((error) => {
       console.error(error);
       res.sendStatus(500);
-  });
+    });
+});
 
-})
-
-module.exports = {brewRouter};
-
+module.exports = { brewRouter };
