@@ -15,12 +15,11 @@ import CustomFeed from '../pages/CustomFeed';
 import CustomDrinkView from '../pages/CustomDrinkView';
 import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
-import Breweries from '../pages/Breweries.jsx';
+// import Breweries from '../pages/Breweries.jsx';
+import WrappedBreweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
 import Quiz from './Quiz';
 import Mapbox from '../pages/Mapbox';
-
-
 
 const App = () => {
   // using react router to conditionally render views
@@ -49,22 +48,25 @@ const App = () => {
             />
           </div>
         </Route>
-
         <Route exact path='/mapbox' component={Mapbox} />
-
-        <Route path='/beer/breweries' component={Breweries} >
-        <div style={{width: '100vw', height: '100vh'}}>
-          <WrappedMap
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAkS-j4nr_o5bz4wUV8Dm9Dk-2rLHJp7nA`} loadingElement={<div style={{height:"100%"}} />}
-          containerElement={<div style={{height:"100%"}} />}
-          mapElement={<div style={{height:"100%"}} />} />
+        {/* <Route path='/beer/breweries' component={Breweries}> */}
+        <Route path='/beer/breweries'>
+          <div>
+            <div>
+              <h3>Breweries</h3>
+            </div>
+            <div style={{ width: '100vw', height: '100vh', marginTop: '25px' }}>
+              <WrappedBreweries
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAkS-j4nr_o5bz4wUV8Dm9Dk-2rLHJp7nA`}
+                loadingElement={<div style={{ height: '100%' }} />}
+                containerElement={<div style={{ height: '100%' }} />}
+                mapElement={<div style={{ height: '100%' }} />}
+              />
+            </div>
           </div>
         </Route>
-
-
         <Route path='/mapbox' component={Mapbox} />
         <Route path='/quiz' component={Quiz} />
-
       </Switch>
     </div>
   );
