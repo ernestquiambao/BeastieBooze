@@ -12,6 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(DIST_DIR));
 
 router(app);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(DIST_DIR, 'index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Server is listening at: http://localhost:${PORT}`);
 });
