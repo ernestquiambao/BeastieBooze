@@ -16,8 +16,8 @@ function UserContextProvider({ children }) {
       .get('/routes/users', { params: userData })
       .then(({ data }) => {
         // console.log('===> userContext user response:', data)
-        const { googleId, username, favorites, creations, imageUrl } = data;
-        setUserInfo({ googleId, username, favorites, creations, imageUrl });
+        const { googleId, username, favorites, creations } = data;
+        setUserInfo({ googleId, username, favorites, creations });
         setIsLoggedIn(true);
 
         //lets set favorites by name

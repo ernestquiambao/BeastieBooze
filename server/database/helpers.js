@@ -13,7 +13,7 @@ const getUser = async (id) => {
 
 // createUser should take a user object ({ googleId, username }) which should make a new user entry in the db
 const createUser = async (userObj) => {
-  const { googleId, givenName: username, imageUrl: imageUrl } = userObj;
+  const { googleId, givenName: username, imageUrl } = userObj;
 
   try {
     const newUser = await User.create({ googleId, username, imageUrl });
