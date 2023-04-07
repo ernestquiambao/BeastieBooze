@@ -15,7 +15,8 @@ const Breweries = (props) => {
   const [breweries, setBreweries] = useState([]);
   const [eachBrewery, setEachBrewery] = useState(null);
   const [barCrawl, setBarCrawl] = useState([]);
-  console.log('WHAT UP DOG', eachBrewery);
+  const [mapPoint, setMapPoint] = useState(null);
+  // console.log('WHAT UP DOG', eachBrewery);
 
   const requestHandler = () => {
     axios
@@ -49,22 +50,19 @@ const Breweries = (props) => {
   };
 
   const handleClick = () => {
-    setBarCrawl([...barCrawl, eachBrewery]);
-    setEachBrewery(null);
+
+    if (eachBrewery.hasOwnProperty('coordinates')) {
+      delete 'coordinates';
+    }
+    setBarCrawl([eachBrewery, ...barCrawl]);
+    // setEachBrewery(null);
   };
 
-  // const handleBreweryClick = (brewery) => {
-  //   setEachBrewery(brewery);
-  // };
-
-  // const addToBarCrawl = () => {
-  //   breweries.forEach(brewery => {
-  //     if (brewery.name === eachBrewery.name) {
-  //       setBarCrawl(eachBrewery => [...eachBrewery])
-  //     }
-  //   })
-
+  // function mouseEvents() {
+  //   setMapPoint(mapPoint === null ? brewery : null);
+  //   // setEachBrewery(brewery);
   // }
+
 
   // const saveBrewery = () => {
   //   const { name, address_1, city, postal_code} = eachBrewery
@@ -84,19 +82,28 @@ const Breweries = (props) => {
         </div>
         <div>
         {eachBrewery && (
-          <div onClick={handleClick}>
-            {Object.entries(eachBrewery).map(([key, value]) => {
-              if (key === 'coordinates') {
-                delete [key, value];
-              }
-              <div key={key}>
-                {key}: {value}
+          <div>
+          {barCrawl.map((bar, index) => (
+            <div key={index} >
+              {/* {Object.entries(bar).map(([key, value]) => (
+                <div key={key}>
+                  {key}: {value}
+                </div>
+              ))} */}
+              <div>
+                <h2>{bar.name}</h2>
+                <p>{bar.address_1}</p>
+                <p>{bar.city}</p>
+                <p>{bar.postal_code}</p>
               </div>
-            })}
-          </div>
+            </div>
+          ))}
+        </div>
         )}
       </div>
-      <div>
+
+
+      {/* <div>
         {barCrawl.map((bar, index) => (
           <div key={index} onClick={() => setEachBrewery(bar)}>
             {Object.entries(bar).map(([key, value]) => (
@@ -106,7 +113,7 @@ const Breweries = (props) => {
             ))}
           </div>
         ))}
-      </div>
+      </div> */}
       </div>
 
       <div>
@@ -127,7 +134,7 @@ const Breweries = (props) => {
               </button>
             </div>
             <div className='brewery'>
-              {breweries.map((brewery) => (
+              {breweries.map((brewery, index) => (
                 <ul key={brewery.id}>
                   {brewery.name}
                   {/* <li>{brewery.brewery_type}</li> */}
@@ -156,13 +163,19 @@ const Breweries = (props) => {
           {breweries.map((brewery) => (
             <Marker
               position={brewery.coordinates}
-              onMouseOver={() =>
-                setEachBrewery(eachBrewery === null ? brewery : null)
+
+              onMouseOver={() => {
+                setMapPoint(mapPoint === null ? brewery : null)
+                setEachBrewery(brewery)
+              }
+                // setEachBrewery(eachBrewery === null ? brewery : null)
+                // setEachBrewery(brewery)
+
               }
             />
           ))}
 
-          {eachBrewery && (
+          {/* {eachBrewery && (
             <InfoWindow
               onCloseClick={() => {
                 setEachBrewery(null);
@@ -174,10 +187,28 @@ const Breweries = (props) => {
                 <p>{eachBrewery.address_1}</p>
                 <p>{eachBrewery.city}</p>
                 <p>{eachBrewery.postal_code}</p>
-                <button type="button"></button>
+                <button type="button" onClick={() => handleClick()}> Add to Bar Crawl</button>
+              </div>
+            </InfoWindow>
+            )} */}
+
+{mapPoint && (
+            <InfoWindow
+              onCloseClick={() => {
+                setEachBrewery(null);
+              }}
+              position={mapPoint.coordinates}
+            >
+              <div>
+                <h2>{mapPoint.name}</h2>
+                <p>{mapPoint.address_1}</p>
+                <p>{mapPoint.city}</p>
+                <p>{mapPoint.postal_code}</p>
+                <button type="button" onClick={() => handleClick()}> Add to Bar Crawl</button>
               </div>
             </InfoWindow>
           )}
+
         </GoogleMap>
       </div>
     </div>
