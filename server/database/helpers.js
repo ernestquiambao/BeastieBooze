@@ -95,7 +95,7 @@ const createEvent = async (data) => {
   const newEvent = await CalEntry.create({
     name: data.name,
     date: data.date,
-    type: data.review,
+    type: data.type,
     description: data.description,
     startTime: data.startTime,
     endTime: data.endTime,
