@@ -13,10 +13,10 @@ const getUser = async (id) => {
 
 // createUser should take a user object ({ googleId, username }) which should make a new user entry in the db
 const createUser = async (userObj) => {
-  const { googleId, givenName: username } = userObj;
+  const { googleId, givenName: username, imageUrl } = userObj;
 
   try {
-    const newUser = await User.create({ googleId, username });
+    const newUser = await User.create({ googleId, username, imageUrl });
     return newUser;
   } catch (err) {
     console.log('createUser failed', err);
