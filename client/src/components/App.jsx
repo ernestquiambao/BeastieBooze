@@ -15,11 +15,11 @@ import CustomFeed from '../pages/CustomFeed';
 import CustomDrinkView from '../pages/CustomDrinkView';
 import Profile from '../pages/Profile';
 import WrappedMap from '../pages/Map.jsx';
-// import Breweries from '../pages/Breweries.jsx';
 import WrappedBreweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
 import Quiz from './Quiz';
 import GoogleMap from '../pages/GoogleMap';
+
 
 const App = () => {
   // using react router to conditionally render views
@@ -50,7 +50,7 @@ const App = () => {
         </Route>
         <Route exact path='/googleMap' component={GoogleMap} />
         {/* <Route path='/beer/breweries' component={Breweries}> */}
-        <Route path='/beer/breweries'>
+        <Route path='/breweries'>
           <div>
             <div>
               <h3>Breweries</h3>

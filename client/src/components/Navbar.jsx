@@ -59,8 +59,8 @@ const Navbar = () => {
           </li>
 
           <li className='nav-item'>
-            <Link to='/beer/breweries' className='nav-link'>
-              Where Dat Brewery?
+            <Link to='/breweries' className='nav-link'>
+              Where Dat Beer?
             </Link>
           </li>
 

@@ -1,4 +1,4 @@
-const { User, Drink, Review, CalEntry } = require('./Models');
+const { User, Drink, Review, CalEntry, BarCrawl } = require('./Models');
 
 // getUser should take a userId and return the found user, empty array or null if not found?
 const getUser = async (id) => {
@@ -9,7 +9,6 @@ const getUser = async (id) => {
     console.log('getUser failed', err);
   }
 };
-
 
 // createUser should take a user object ({ googleId, username }) which should make a new user entry in the db
 const createUser = async (userObj) => {
@@ -73,7 +72,11 @@ const findDrinkReviews = async (id) => {
 
 const getEvent = async (date, startTime, id) => {
   try {
-    const event = await CalEntry.find({ date:date, startTime: startTime, user: id });
+    const event = await CalEntry.find({
+      date: date,
+      startTime: startTime,
+      user: id,
+    });
     return event;
   } catch (err) {
     console.log('getUser failed', err);
@@ -82,7 +85,7 @@ const getEvent = async (date, startTime, id) => {
 
 const getEventsByDate = async (date, id) => {
   try {
-    const event = await CalEntry.find({ date:date, user: id });
+    const event = await CalEntry.find({ date: date, user: id });
     return event;
   } catch (err) {
     console.log('getUser failed', err);
@@ -109,28 +112,43 @@ const createEvent = async (data) => {
 };
 
 const findAndUpdateEvent = async (date, startTime, data) => {
-  const updatedEvent = await CalEntry.findOneAndUpdate(
-    { new: true }
-  );
+  const updatedEvent = await CalEntry.findOneAndUpdate({ new: true });
   return updatedEvent;
 };
 
-const findAndDeleteDay = async(date, id) => {
-
+const findAndDeleteDay = async (date, id) => {
   const deleteEvent = await CalEntry.deleteOne({ date: date, user: id });
 
   return deleteEvent;
-}
+};
 
-const findAndDeleteEvent = async(date, startTime, id) => {
-
-  const deleteEvent = await CalEntry.deleteOne({ date: date, startTime: startTime });
+const findAndDeleteEvent = async (date, startTime, id) => {
+  const deleteEvent = await CalEntry.deleteOne({
+    date: date,
+    startTime: startTime,
+  });
 
   return deleteEvent;
-}
+};
 
+// const addBarCrawl = async (barCrawl) => {
+//   const newBarCrawl = new BarCrawl({
+//     name: barCrawl.name,
+//     breweryList: barCrawl.barCrawl,
+//   });
+//   await newBarCrawl.save();
+// }
 
-
+// const addBrewery = async (brewery) => {
+//   const newBrewery = new BarCrawl({
+//     name: brewery.name,
+//     street: brewery.address_1,
+//     city: brewery.city,
+//     zipCode: brewery.postal_code,
+//     breweryList: brewery.breweryList,
+//   });
+//   await newBrewery.save();
+// };
 
 module.exports = {
   getUser,
@@ -140,11 +158,12 @@ module.exports = {
   findAndDeleteFavorites,
   addReviews,
   findDrinkReviews,
-    getEvent,
-    createEvent,
-    findAndUpdateEvent,
-    findAndDeleteEvent,
-    findAndDeleteDay,
-    getEventsByDate
-
+  getEvent,
+  createEvent,
+  findAndUpdateEvent,
+  findAndDeleteEvent,
+  findAndDeleteDay,
+  getEventsByDate,
+  // addBrewery,
+  // addBarCrawl,
 };
