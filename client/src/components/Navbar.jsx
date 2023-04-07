@@ -69,11 +69,6 @@ const Navbar = () => {
               My Events
             </Link>
           </li>
-          <li className='nav-item'>
-            <Link to='/mapbox' className='nav-link'>
-              Walk it off, Buddy
-            </Link>
-          </li>
 
           <li className='nav-item'>
             <Link to='/quiz' className='nav-link'>
@@ -90,6 +85,12 @@ const Navbar = () => {
           ) : null}
         </ul>
 
+        <li className='nav-item'>
+            <Link to='/googleMap' className='nav-link'>
+              Walk it off, Buddy
+            </Link>
+          </li>
+          
         {username ? (
           <li className='nav-item'>
             <Link to={`/profile/${userInfo.googleId}`}>
