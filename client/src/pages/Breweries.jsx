@@ -55,13 +55,8 @@ const Breweries = (props) => {
       delete 'coordinates';
     }
     setBarCrawl([eachBrewery, ...barCrawl]);
-    // setEachBrewery(null);
   };
 
-  // function mouseEvents() {
-  //   setMapPoint(mapPoint === null ? brewery : null);
-  //   // setEachBrewery(brewery);
-  // }
 
 
   // const saveBrewery = () => {
@@ -85,13 +80,8 @@ const Breweries = (props) => {
           <div>
           {barCrawl.map((bar, index) => (
             <div key={index} >
-              {/* {Object.entries(bar).map(([key, value]) => (
-                <div key={key}>
-                  {key}: {value}
-                </div>
-              ))} */}
               <div>
-                <h2>{bar.name}</h2>
+                <h5>{bar.name}</h5>
                 <p>{bar.address_1}</p>
                 <p>{bar.city}</p>
                 <p>{bar.postal_code}</p>
@@ -102,18 +92,6 @@ const Breweries = (props) => {
         )}
       </div>
 
-
-      {/* <div>
-        {barCrawl.map((bar, index) => (
-          <div key={index} onClick={() => setEachBrewery(bar)}>
-            {Object.entries(bar).map(([key, value]) => (
-              <div key={key}>
-                {key}: {value}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div> */}
       </div>
 
       <div>
@@ -168,29 +146,11 @@ const Breweries = (props) => {
                 setMapPoint(mapPoint === null ? brewery : null)
                 setEachBrewery(brewery)
               }
-                // setEachBrewery(eachBrewery === null ? brewery : null)
-                // setEachBrewery(brewery)
 
               }
             />
           ))}
 
-          {/* {eachBrewery && (
-            <InfoWindow
-              onCloseClick={() => {
-                setEachBrewery(null);
-              }}
-              position={eachBrewery.coordinates}
-            >
-              <div>
-                <h2>{eachBrewery.name}</h2>
-                <p>{eachBrewery.address_1}</p>
-                <p>{eachBrewery.city}</p>
-                <p>{eachBrewery.postal_code}</p>
-                <button type="button" onClick={() => handleClick()}> Add to Bar Crawl</button>
-              </div>
-            </InfoWindow>
-            )} */}
 
 {mapPoint && (
             <InfoWindow
