@@ -3,7 +3,7 @@ dotenv.config();
 const moment = require('moment');
 const mongoose = require('mongoose');
 ////////////////////////////////////////////////////////
-const DATABASE = process.env.DB_NAME || 'beastie-booze';
+const DATABASE = process.env.DB_NAME;
 // for dev - uncomment the next line and comment out line 10
  //const dbLocation = `mongodb://localhost:27017/${DATABASE}`;
 // for prod
@@ -35,6 +35,7 @@ const Review = mongoose.model('Review', ReviewSchema);
 const UserSchema = new mongoose.Schema({
   googleId: String, // not sure if this will a string or a number, need to check once we can get data from google
   username: String,
+  imageUrl: String,
   favorites: [],
   creations: [],
 });
@@ -64,12 +65,18 @@ startTime: {type:String, unique: true },
 endTime: String,
 location: String,
 invited: Array,
+})
 
+
+const BarCrawlSchema = new mongoose.Schema({
+  name: String,
+  breweryList: Array,
 })
 
 const User = mongoose.model('User', UserSchema);
 const Drink = mongoose.model('Drink', DrinkSchema);
 const CalEntry = mongoose.model('CalEntry', CalendarEntrySchema);
+const BarCrawl = mongoose.model('BarCrawl', BarCrawlSchema)
 
 const addDrink = async (drink) => {
   const { drinkName: name, instructions, ingredients, alcoholic } = drink;
@@ -105,6 +112,14 @@ const getCalEntry = async () => {
   return await CalEntry.find({}).exec();
 };
 
+// const addBrewery = async (brewery) => {
+//   const newBrewery = new BarCrawl({
+//     name: brewery.name,
+//     breweryList: brewery.breweryList,
+//   })
+//   await newBrewery.save();
+// }
+
 module.exports = {
   User,
   Drink,
@@ -113,4 +128,6 @@ module.exports = {
   addDrink,
   getDrinks,
   Review,
+  BarCrawl
+  // addBrewery,
 };

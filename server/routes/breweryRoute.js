@@ -1,17 +1,13 @@
 const { Router } = require('express');
-// const router = require('express').Router();
 const dotenv = require('dotenv');
 const axios = require('axios');
-// const stringify = require('json-stringify-safe');
-
-// dotenv.config();
+// const { addBarCrawl } = require('../database/helpers');
+const { BarCrawl } = require('../database/Models')
 
 const brewRouter = Router();
 
 brewRouter.get('/breweries', (req, res) => {
   const { by_city } = req.query;
-
-  // console.log('HELLLOOOOO', req);
 
   const options = {
     method: 'GET',
@@ -19,20 +15,10 @@ brewRouter.get('/breweries', (req, res) => {
     params: { by_city },
   };
 
-  // const options = {
-  //   method: 'GET',
-  //   url: 'https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries',
-  //   params: {by_state: 'NY'},
-  //   headers: {
-  //     'X-RapidAPI-Key': '2cbdb847d2mshd5b48913e0fb840p1e26a6jsnb4b7f045b962',
-  //     'X-RapidAPI-Host': 'brianiswu-open-brewery-db-v1.p.rapidapi.com'
-  //   }
-  // };
-
   axios
     .request(options)
     .then(({ data }) => {
-      console.log('HELLO', data);
+      // console.log('HELLO', data);
       res.status(200).send(data);
     })
     .catch((error) => {
@@ -40,5 +26,26 @@ brewRouter.get('/breweries', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+brewRouter.post('/breweries', (req, res) => {
+  console.log(req.body)
+  const { name, breweryList } = req.body
+  BarCrawl.replaceOne({ name: name }, {
+    name: name,
+    breweryList: breweryList,
+  },
+  {upsert: true})
+  .then(() => {
+    res.sendStatus(201);
+  })
+  .catch((err) => {
+    console.log('ERROR POSTING', err);
+    res.sendStatus(500);
+  })
+
+
+
+})
 
 module.exports = { brewRouter };

@@ -59,19 +59,14 @@ const Navbar = () => {
           </li>
 
           <li className='nav-item'>
-            <Link to='/beer/breweries' className='nav-link'>
-              Where Dat Brewery?
+            <Link to='/breweries' className='nav-link'>
+              Where Dat Beer?
             </Link>
           </li>
 
           <li className='nav-item'>
             <Link to='/calendar' className='nav-link'>
               My Events
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link to='/mapbox' className='nav-link'>
-              Walk it off, Buddy
             </Link>
           </li>
 
@@ -90,6 +85,12 @@ const Navbar = () => {
           ) : null}
         </ul>
 
+        <li className='nav-item'>
+            <Link to='/googleMap' className='nav-link'>
+              Walk it off, Buddy
+            </Link>
+          </li>
+          
         {username ? (
           <li className='nav-item'>
             <Link to={`/profile/${userInfo.googleId}`}>
