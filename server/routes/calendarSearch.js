@@ -15,7 +15,7 @@ const calEntryRouter = Router();
 
 
 // creates an event
-calEntryRouter.get('/entries', async (req, res) => {
+calEntryRouter.get('/events', async (req, res) => {
   const { time, date } = req.query;
   const existingEntry = await getEvent(time, date);
 
@@ -38,7 +38,7 @@ calEntryRouter.get('/entries', async (req, res) => {
 
 
 
-calEntryRouter.put('/entries/:date', (req, res) => {
+calEntryRouter.put('/events/:date', (req, res) => {
   const { id, date, time } = req.params;
   findAndUpdateEvent(id, date, time)
     .then((data) => {
@@ -52,7 +52,7 @@ calEntryRouter.put('/entries/:date', (req, res) => {
 });
 
 // adds a calendar entry
-calEntryRouter.delete('/entries/:date', (req, res) => {
+calEntryRouter.delete('/events/:date', (req, res) => {
   const EntryObj = req.body;
   findAndDeleteEvent(EntryObj)
     .then((user) => {
@@ -65,7 +65,7 @@ calEntryRouter.delete('/entries/:date', (req, res) => {
 });
 
 // Gets all entries for a given date for a user
-calEntryRouter.get('/entries/:date', (req, res) => {
+calEntryRouter.get('/events/:date', (req, res) => {
   const { date } = req.params;
   const { _id } = req.user
 getEvent()
@@ -77,5 +77,18 @@ getEvent()
       res.sendStatus(500);
     });
 });
+
+calEntryRouter.post('/events', (req, res) => {
+  const eventObj = req.body
+  createEvent(eventObj)
+    .then((eventObj) => {
+      res.status(201).send(eventObj);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+ });
+
 
 module.exports = { calEntryRouter };

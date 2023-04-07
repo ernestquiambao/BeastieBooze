@@ -90,11 +90,19 @@ const getEventsByDate = async (date, id) => {
 };
 
 
-const createEvent = async (entryObj) => {
-  const { name, date, type, description, startTime, endTime, location, user, invited} = entryObj
+const createEvent = async (data) => {
   try {
-    const newEvent = await CalEntry.create({ name, date, type, description, startTime, endTime, location, user, invited });
-    return newEvent;
+  const newEvent = await CalEntry.create({
+    name: data.name,
+    date: data.date,
+    type: data.review,
+    description: data.description,
+    startTime: data.startTime,
+    endTime: data.endTime,
+    location: data.location,
+    invited: data.invited
+  })
+  return newEvent
   } catch (err) {
     console.log('createNewEvent failed', err);
   }

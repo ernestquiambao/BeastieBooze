@@ -95,7 +95,6 @@ const addCalEntry = async (entry) => {
     startTime: entry.startTime,
     endTime: entry.endTime,
     location: entry.location,
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     invited:[]
 
   });
