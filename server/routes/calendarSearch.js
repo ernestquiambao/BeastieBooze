@@ -67,8 +67,7 @@ calEntryRouter.delete('/events/:date', (req, res) => {
 // Gets all entries for a given date for a user
 calEntryRouter.get('/events/:date', (req, res) => {
   const { date } = req.params;
-  const { _id } = req.user
-getEvent()
+getEvent(date)
     .then((data) => {
       res.status(201).send(data);
     })

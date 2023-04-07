@@ -80,10 +80,10 @@ const getEvent = async (date, startTime, id) => {
   }
 };
 
-const getEventsByDate = async (date, id) => {
+const getEventsByDate = async (date) => {
   try {
-    const event = await CalEntry.find({ date:date, user: id });
-    return event;
+    const events = await CalEntry.find({ date: date });
+    return events;
   } catch (err) {
     console.log('getUser failed', err);
   }

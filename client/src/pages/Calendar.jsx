@@ -42,9 +42,15 @@ function eventCalendar(){
 
   const { register, handleSubmit } = useForm();
 
+  const [eventsList, setEventsList] = useState('');
+
   const types = ['party', 'date drinks', 'business drinks', 'special occasion drinks', 'drinks with friends', 'holiday drinks', 'bar crawl drinks', 'just need an alone drink']
 
 console.log(currDate);
+
+
+
+
 
   const eventCreate = () => {
     setIsOpen(true);
@@ -66,10 +72,20 @@ console.log(currDate);
     setEventDate(newDate);
     }
 
-  const eventList = (date) => {
 
 
- }
+
+    const eventList = () => {
+    axios.get(`routes/calendar/events/${currDate}`)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.error('unable to get calendar day', err);
+    })
+}
+
+
 
 
   return (
@@ -146,6 +162,7 @@ console.log(currDate);
       </ReactModal>
       <div>
         <button onClick={eventList}> Show Today's Events </button>
+
 
         </div>
 </div>
