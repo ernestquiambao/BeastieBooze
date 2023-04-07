@@ -69,9 +69,6 @@ invited: Array,
 
 const BarCrawlSchema = new mongoose.Schema({
   name: String,
-  street: String,
-  city: String,
-  zipCode: String,
   breweryList: Array,
 })
 
@@ -131,6 +128,6 @@ module.exports = {
   addDrink,
   getDrinks,
   Review,
-  BarCrawl,
+  BarCrawl
   // addBrewery,
 };

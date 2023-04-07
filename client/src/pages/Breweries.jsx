@@ -8,7 +8,7 @@ import {
 } from 'react-google-maps';
 import axios from 'axios';
 
-const Breweries = (props) => {
+const Breweries = () => {
   //set state with React hooks
 
   const [searchedCity, setCity] = useState(null);
@@ -16,7 +16,8 @@ const Breweries = (props) => {
   const [eachBrewery, setEachBrewery] = useState(null);
   const [barCrawl, setBarCrawl] = useState([]);
   const [mapPoint, setMapPoint] = useState(null);
-  // console.log('WHAT UP DOG', eachBrewery);
+  const [crawlName, setCrawlName] = useState(null);
+
 
   const requestHandler = () => {
     axios
@@ -24,7 +25,7 @@ const Breweries = (props) => {
         params: { by_city: searchedCity },
       })
       .then(({ data }) => {
-        console.log('Successful GET', data);
+        // console.log('Successful GET', data);/
 
         let updatedData = data.map((item) => {
           if (
@@ -58,16 +59,12 @@ const Breweries = (props) => {
   };
 
 
-
-  // const saveBrewery = () => {
-  //   const { name, address_1, city, postal_code} = eachBrewery
-  //   axios.post('/routes/beer/breweries', {
-  //     name: name,
-  //     street: address_1,
-  //     city: city,
-  //     zipCode: postal_code,
-  //   })
-  // };
+const saveBarCrawl = () => {
+    axios.post('/routes/beer/breweries', {
+      name: crawlName,
+      breweryList: barCrawl
+    })
+}
 
   return (
     <div>
@@ -76,6 +73,11 @@ const Breweries = (props) => {
           <h3>Bar Crawl</h3>
         </div>
         <div>
+          <div>
+            <label className="crawl-label">Name Your Crawl:</label>
+            <input type="text" onChange={event => setCrawlName(event.target.value)}></input>
+            <button type="button" onClick={() => saveBarCrawl()}>Save Bar Crawl</button>
+          </div>
         {eachBrewery && (
           <div>
           {barCrawl.map((bar, index) => (
@@ -137,6 +139,7 @@ const Breweries = (props) => {
         <GoogleMap
           defaultZoom={12}
           defaultCenter={{ lat: 29.951065, lng: -90.071533 }}
+          // ref={(map) => handleMapMounted(map)}
         >
           {breweries.map((brewery) => (
             <Marker

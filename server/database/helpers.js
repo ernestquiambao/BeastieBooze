@@ -142,16 +142,24 @@ const findAndDeleteEvent = async (date, startTime, id) => {
   return deleteEvent;
 };
 
-const addBrewery = async (brewery) => {
-  const newBrewery = new BarCrawl({
-    name: brewery.name,
-    street: brewery.address_1,
-    city: brewery.city,
-    zipCode: brewery.postal_code,
-    breweryList: brewery.breweryList,
-  });
-  await newBrewery.save();
-};
+// const addBarCrawl = async (barCrawl) => {
+//   const newBarCrawl = new BarCrawl({
+//     name: barCrawl.name,
+//     breweryList: barCrawl.barCrawl,
+//   });
+//   await newBarCrawl.save();
+// }
+
+// const addBrewery = async (brewery) => {
+//   const newBrewery = new BarCrawl({
+//     name: brewery.name,
+//     street: brewery.address_1,
+//     city: brewery.city,
+//     zipCode: brewery.postal_code,
+//     breweryList: brewery.breweryList,
+//   });
+//   await newBrewery.save();
+// };
 
 module.exports = {
   getUser,
@@ -167,5 +175,6 @@ module.exports = {
   findAndDeleteEvent,
   findAndDeleteDay,
   getEventsByDate,
-  addBrewery,
+  // addBrewery,
+  // addBarCrawl,
 };
