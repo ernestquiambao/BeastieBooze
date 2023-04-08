@@ -6,7 +6,7 @@ const { BarCrawl } = require('../database/Models')
 
 const brewRouter = Router();
 
-brewRouter.get('/breweries', (req, res) => {
+brewRouter.get('/api', (req, res) => {
   const { by_city } = req.query;
 
   const options = {
@@ -28,8 +28,8 @@ brewRouter.get('/breweries', (req, res) => {
 });
 
 
-brewRouter.post('/breweries', (req, res) => {
-  console.log(req.body)
+brewRouter.post('/db', (req, res) => {
+  // console.log(req.body)
   const { name, breweryList } = req.body
   BarCrawl.replaceOne({ name: name }, {
     name: name,
@@ -42,6 +42,19 @@ brewRouter.post('/breweries', (req, res) => {
   .catch((err) => {
     console.log('ERROR POSTING', err);
     res.sendStatus(500);
+  })
+
+
+  brewRouter.get('/db', (req, res) => {
+    // console.log(req);
+    BarCrawl.find({})
+    .then((crawls) => {
+      res.send(crawls);
+    })
+    .catch((err) => {
+      console.log('Failed GET', err)
+      res.sendStatus(500);
+    })
   })
 
 

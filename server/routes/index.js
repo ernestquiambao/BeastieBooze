@@ -15,6 +15,6 @@ module.exports = (app) => {
   app.use('/routes/users/', usersRouter)
   app.use('/routes/breweries/', brewRouter),
   app.use('/routes/calendar/', calEntryRouter);
-  app.use('/routes/beer/', brewRouter);
+  // app.use('/routes/beer/', brewRouter);
   app.use('/routes/quiz/', quizRouter);
 };
