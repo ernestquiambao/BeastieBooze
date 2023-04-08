@@ -116,8 +116,8 @@ const findAndUpdateEvent = async (date, startTime, data) => {
   return updatedEvent;
 };
 
-const findAndDeleteDay = async (date, id) => {
-  const deleteEvent = await CalEntry.deleteOne({ date: date, user: id });
+const findAndDeleteDay = async (date) => {
+  const deleteEvent = await CalEntry.deleteMany({ date: date });
 
   return deleteEvent;
 };
