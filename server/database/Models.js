@@ -38,6 +38,10 @@ const UserSchema = new mongoose.Schema({
   imageUrl: String,
   favorites: [],
   creations: [],
+  scores: {
+    type: [String], default:'0' // THIS IS WHAT I NEED. START EVERYBODY OFF WITH 0/20
+  }
+  latlng: [],
 });
 
 const DrinkSchema = new mongoose.Schema({

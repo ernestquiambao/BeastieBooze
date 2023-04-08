@@ -90,7 +90,7 @@ const Navbar = () => {
               Walk it off, Buddy
             </Link>
           </li>
-          
+
         {username ? (
           <li className='nav-item'>
             <Link to={`/profile/${userInfo.googleId}`}>

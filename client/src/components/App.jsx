@@ -19,6 +19,7 @@ import WrappedBreweries from '../pages/Breweries.jsx';
 import eventCalendar from '../pages/Calendar.jsx';
 import Quiz from './Quiz';
 import GoogleMap from '../pages/GoogleMap';
+// import Breweries from '../pages/Breweries.jsx';
 
 
 const App = () => {
@@ -52,10 +53,13 @@ const App = () => {
         {/* <Route path='/beer/breweries' component={Breweries}> */}
         <Route path='/breweries'>
           <div>
-            <div>
+            {/* <div>
               <h3>Breweries</h3>
-            </div>
-            <div style={{ width: '100vw', height: '100vh', marginTop: '25px' }}>
+            </div> */}
+
+            <div className='flex=-container'>
+              <div>Breweries</div>
+            <div style={{ width: '100vw', height: '100vh',  marginTop: '25px' }}>
               <WrappedBreweries
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAkS-j4nr_o5bz4wUV8Dm9Dk-2rLHJp7nA`}
                 loadingElement={<div style={{ height: '100%' }} />}
@@ -63,8 +67,18 @@ const App = () => {
                 mapElement={<div style={{ height: '100%' }} />}
               />
             </div>
+            </div>
+
+
           </div>
         </Route>
+        {/* <Route path='/breweries' component={Breweries}>
+        <div>
+        <div>
+            <h3>Breweries</h3>
+          </div>
+        </div>
+        </Route> */}
         <Route path='/quiz' component={Quiz} />
       </Switch>
     </div>

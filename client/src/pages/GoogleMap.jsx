@@ -1,29 +1,16 @@
-import React, { useState } from 'react';
-import { GoogleMap, DirectionsRenderer, DirectionsService, LatLng } from '@react-google-maps/api';
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, DirectionsRenderer, DirectionsService } from '@react-google-maps/api';
 import { Loader } from '@googlemaps/js-api-loader';
 
 const GoogleMapDirections = () => {
   const [directions, setDirections] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentLocation, setCurrentLocation] = useState(null);
 
   const containerStyle = {
     width: '100%',
     height: '800px',
-  };
-
-  const center = {
-    lat: 37.7749,
-    lng: -122.4194,
-  };
-
-  const directionsCallback = (response, status) => {
-    if (status === 'OK') {
-      setDirections(response);
-    } else {
-      setError('Directions request failed due to ' + status);
-    }
-    setIsLoading(false);
   };
 
   const options = {
@@ -37,25 +24,34 @@ const GoogleMapDirections = () => {
     libraries: ['places'],
   });
 
-  //    Getting directions from Rusty Nail to Home
-  const getDirections = () => {
-    const directionService = new window.google.maps.DirectionsService();
-    const rustyNail = new window.google.maps.LatLng(29.940914305487873, -90.06928203181762);
-    const homeFourth = new window.google.maps.LatLng(29.923936587036795, -90.08069751330405);
-    const directionsRequest = {
-      origin: rustyNail,
-      destination: homeFourth,
-      travelMode: 'WALKING',
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          setCurrentLocation({ lat: latitude, lng: longitude });
+        },
+        error => setError(error.message)
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
     }
-    directionService.route(directionsRequest, directionsCallback);
-  }
+  }, []);
 
+  const directionsCallback = (response, status) => {
+    if (status === 'OK') {
+      setDirections(response);
+    } else {
+      setError('Directions request failed due to ' + status);
+    }
+    setIsLoading(false);
+  };
 
   const renderMap = () => {
     return (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={currentLocation}
         zoom={10}
         options={options}
         onLoad={(map) => console.log('Map:', map)}
@@ -66,10 +62,32 @@ const GoogleMapDirections = () => {
     );
   };
 
+  const getDirections = () => {
+    const directionService = new window.google.maps.DirectionsService();
+    const end = new window.google.maps.LatLng(29.963280989903282, -90.05199237099808);
+    const directionsRequest = {
+      origin: currentLocation,
+      destination: end,
+      travelMode: 'WALKING',
+    }
+    directionService.route(directionsRequest, directionsCallback);
+  }
+
+  useEffect(() => {
+    if (currentLocation) {
+      loader.load().then(() => {
+        setIsLoading(false);
+        getDirections();
+      });
+    }
+  }, [currentLocation]);
+
   if (isLoading) {
-    loader.load().then(() => {setIsLoading(false);
-    getDirections()});
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return renderMap();
