@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
   creations: [],
   scores: {
     type: [String], default:'0' // THIS IS WHAT I NEED. START EVERYBODY OFF WITH 0/20
-  }
+  },
   latlng: [],
 });
 
