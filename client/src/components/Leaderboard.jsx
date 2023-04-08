@@ -2,17 +2,24 @@ import React, { useState, useEffect, useContext } from 'react'
 import players from '../../fakePlayers';
 import { UserContext } from '../userContext';
 import axios from 'axios';
+import 'regenerator-runtime/runtime'
 
 export default function LeaderBoard() {
   const { userInfo } = useContext(UserContext);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await axios.get(`/routes/quiz/user/${userInfo.googleId}`);
-      setUsers([data]);
+    const fetchUser = () => {
+      axios.get(`/routes/quiz/user/${userInfo.googleId}`)
+        .then((response) => {
+          console.log('yay');
+          setUsers([response.data]);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
-
+  
     fetchUser();
   }, [userInfo.googleId]);
 
