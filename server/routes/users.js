@@ -14,7 +14,7 @@ const { User } = require('../database/Models');
 const usersRouter = Router();
 
 usersRouter.get('/', async (req, res) => {
-  const { googleId, username, imageUrl } = req.query;
+  const { googleId, username, imageUrl, scores } = req.query;
   const existingUser = await getUser(googleId);
 
   if (existingUser.length) {
