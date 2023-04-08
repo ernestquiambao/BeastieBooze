@@ -40,18 +40,31 @@ calEntryRouter.get('/events', async (req, res) => {
 
 
 
-calEntryRouter.put('/events/:date', (req, res) => {
-  const { id, date, time } = req.params;
-  findAndUpdateEvent(id, date, time)
-    .then((data) => {
-      console.log('updated calendar event:', data);
-      res.status(201).send(data);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-});
+calEntryRouter.put('/events/:id', (req, res) => {
+    const { event } = req.body;
+    const { id } = req.params;
+    //find the task document by id
+    console.log(req);
+
+    CalEntry.findByIdAndUpdate(id, event, { returnDocument: 'after'})
+      .then((eventObj) => {
+      //If found and updated, send st 200
+      // If not found, send st 404
+        if (eventObj) {
+          // if found and updated
+        //  console.log('Achieved to FIND & UPDATE a event', taskObj);
+          res.sendStatus(200);
+        } else {
+          // if not found, send st 404(data is null)
+          res.sendStatus(404);
+        }
+      })
+      .catch((err) => {
+        // console.error('Failed to FIND & UPDATE a event', err);
+        res.sendStatus(500);
+      });
+  // Log the error && send st 500
+  });
 
 // deletes all events for a day
 calEntryRouter.delete('/events/:date', (req, res) => {
@@ -68,6 +81,24 @@ calEntryRouter.delete('/events/:date', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+calEntryRouter.delete('/events/:date', (req, res) => {
+  const { date } = req.params
+  const { startTime } = req.startTime
+  CalEntry.deleteOne({ date: date, startTime: startTime })
+  .then(({ deletedCount }) => {
+    if (deletedCount) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+  .catch((err) => {
+    console.log('Failed to DELETE', err);
+    res.sendStatus(500);
+  })
+});
+
 
 // Gets all entries for a given date for a user
 calEntryRouter.get('/events/:date', (req, res) => {
