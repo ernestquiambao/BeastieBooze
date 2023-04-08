@@ -2,7 +2,7 @@ const { Router } = require('express');
 const dotenv = require('dotenv');
 const axios = require('axios');
 // const { addBarCrawl } = require('../database/helpers');
-const { BarCrawl } = require('../database/Models')
+const { BarCrawl, User } = require('../database/Models')
 
 const brewRouter = Router();
 
@@ -29,11 +29,13 @@ brewRouter.get('/api', (req, res) => {
 
 
 brewRouter.post('/db', (req, res) => {
-  // console.log(req.body)
+  console.log(req)
   const { name, breweryList } = req.body
-  BarCrawl.replaceOne({ name: name }, {
+  const { _id } = req.user;
+  BarCrawl.replaceOne({ name: name, user: _id}, {
     name: name,
     breweryList: breweryList,
+    user: _id
   },
   {upsert: true})
   .then(() => {
@@ -55,6 +57,12 @@ brewRouter.post('/db', (req, res) => {
       console.log('Failed GET', err)
       res.sendStatus(500);
     })
+  })
+
+  brewRouter.delete('/db', (req, res) => {
+    console.log(req)
+
+    BarCrawl.deleteOne()
   })
 
 

@@ -71,6 +71,8 @@ invited: Array,
 const BarCrawlSchema = new mongoose.Schema({
   name: String,
   breweryList: Array,
+  date: String,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 
 const User = mongoose.model('User', UserSchema);
@@ -111,14 +113,6 @@ const addCalEntry = async (entry) => {
 const getCalEntry = async () => {
   return await CalEntry.find({}).exec();
 };
-
-// const addBrewery = async (brewery) => {
-//   const newBrewery = new BarCrawl({
-//     name: brewery.name,
-//     breweryList: brewery.breweryList,
-//   })
-//   await newBrewery.save();
-// }
 
 module.exports = {
   User,
