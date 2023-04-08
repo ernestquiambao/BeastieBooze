@@ -31,26 +31,26 @@ export default function LeaderBoard() {
   };
 
   return (
-    <div>
-      <h1>Leaderboard</h1>
+    <div style={{textAlign: 'center'}}>
+      <h1 style={{margin: "1.5rem"}}>Leaderboard</h1>
       <table>
         <thead>
           <tr>
-            <th>Place</th>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Top 5 Scores</th>
+            <th style={{fontSize: "1.5rem"}}>Place</th>
+            <th style={{fontSize: "1.5rem"}}>Name</th>
+            <th style={{fontSize: "1.5rem"}}>Image</th>
+            <th style={{fontSize: "1.5rem"}}>Top 5 Scores</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
             <tr key={user._id}>
-              <td>{index + 1}</td>
-              <td>{user.username}</td>
-              <td>
-                <img src={user.imageUrl} alt={user.username} />
+              <td style={{width: '25vw', fontSize: "1.2rem", fontWeight: 'bold'}} >{index + 1}</td>
+              <td style={{width: '25vw', fontSize: "1.2rem", fontWeight: 'bold'}}>{user.username}</td>
+              <td style={{width: '25vw', fontSize: "1.2rem"}}>
+                <img src={user.imageUrl} alt={user.username} style={{borderRadius: "2rem"}}/>
               </td>
-              <td>{renderScores(user.scores)}</td>
+              <td style={{width: '25vw', fontSize: "1.2rem", fontWeight: 'bold'}}>{renderScores(user.scores)}</td>
             </tr>
           ))}
         </tbody>
