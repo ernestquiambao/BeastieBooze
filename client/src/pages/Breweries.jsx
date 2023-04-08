@@ -18,8 +18,18 @@ const Breweries = () => {
   const [mapPoint, setMapPoint] = useState(null);
   const [crawlName, setCrawlName] = useState(null);
   const [seeAllCrawls, setSeeAllCrawls] = useState([]);
-  const [selectedCrawl, setSelectedCrawl] = useState({});
+  const [selectedCrawl, setSelectedCrawl] = useState([]);
   // const [myCrawl, setMyCrawl] = useState({});
+
+  // let myCrawl = [];
+  // // useEffect(() => {
+    // if (Object.keys(selectedCrawl) > 0) {
+    //   console.log(selectedCrawl)
+  //     // myCrawl = selectedCrawl.breweryList;
+  //     // console.log('CHECK ME', myCrawl);
+    // }
+  // // }, []  )
+
 
 
   const requestHandler = () => {
@@ -89,13 +99,10 @@ const findBarCrawls = () => {
     })
 }
 
-// let myBarCrawl = null;
-
-  // if (selectedCrawl !== {}) {
-  //   myBarCrawl = selectedCrawl;
-  // }
-  // return myBarCrawl;
-  // // console.log('hello0000000', selectedCrawl);
+// const handleChange = (event) => {
+//   const myCrawl = seeAllCrawls.filter((crawl) => crawl.name === event.target.value)[0].breweries;
+//   setSelectedCrawl(myCrawl);
+// }
 
 
 const clearFields = () => {
@@ -105,8 +112,13 @@ const clearFields = () => {
 
 useEffect(() => {
   findBarCrawls()
-
 }, [])
+
+// useEffect(() => {
+//   if (Object.entries(selectedCrawl).length > 0) {
+//     setSelectedCrawl(selectedCrawl);
+//   }
+// }, [selectedCrawl]);
 
   return (
     <div>
@@ -175,26 +187,38 @@ useEffect(() => {
 
 <div >
 <h3>See Bar Crawls</h3>
-<select  onChange={(event) => setSelectedCrawl(event.target.value)}>
+{/* <select  onChange={(event) => {(event.target.value)}}> */}
+{/* <select  onChange={(event) => handleChange(event.target.value)}> */}
+<select  onChange={(event) => setSelectedCrawl(seeAllCrawls.filter((crawl) => crawl.name === event.target.value))}>
+{/* <select > */}
+  {/* {console.log(event.target.value)} */}
+
   <option>Find Crawl</option>
 {seeAllCrawls.map((crawl) => (
   <option key={crawl._id}
 
-  value={crawl.breweryList}
+  value={crawl.name}
 
   >{crawl.name}</option>
 ))}
 </select>
 
+{console.log(selectedCrawl)}
 
-{Object.keys(selectedCrawl).length > 0 ? (selectedCrawl.breweryList.map((brewery) => (
-   <div>
-   <h5>{brewery.name}</h5>
-   <p>{brewery.address_1}</p>
-   <p>{brewery.city}</p>
-   <p>{brewery.postal_code}</p>
- </div>
-))
+{/* {Object.keys(selectedCrawl).length > 0 && selectedCrawl ? (selectedCrawl.map((brewery) => { */}
+{selectedCrawl.length > 0 && selectedCrawl[0].breweryList ? (selectedCrawl[0].breweryList.map((brewery) => {
+  console.log('Hellooo NOW', brewery)
+  // console.log('Hellooo LATER', selectedCrawl[0].breweryList)
+  return (
+    <div>
+    <h5>{brewery.name}</h5>
+    <p>{brewery.address_1}</p>
+    <p>{brewery.city}</p>
+    <p>{brewery.postal_code}</p>
+  </div>
+  )
+
+  })
 ) : (
   <div></div>
 )}
