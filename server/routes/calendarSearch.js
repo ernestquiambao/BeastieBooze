@@ -4,7 +4,9 @@ const {
   getEvent,
   createEvent,
   findAndUpdateEvent,
-  findAndDeleteEvent
+  findAndDeleteEvent,
+  findAndDeleteDay,
+  getEventsByDate
 } = require('../database/helpers')
 
 const axios = require('axios');
@@ -51,12 +53,15 @@ calEntryRouter.put('/events/:date', (req, res) => {
     });
 });
 
-// adds a calendar entry
+// deletes all events for a day
 calEntryRouter.delete('/events/:date', (req, res) => {
-  const EntryObj = req.body;
-  findAndDeleteEvent(EntryObj)
-    .then((user) => {
-      res.status(201).send(user);
+  const { date } = req.params
+  findAndDeleteDay(date)
+    .then((data) => {
+      if(!data){
+        console.log('able to delete:', data)
+      res.status(201);
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -67,8 +72,8 @@ calEntryRouter.delete('/events/:date', (req, res) => {
 // Gets all entries for a given date for a user
 calEntryRouter.get('/events/:date', (req, res) => {
   const { date } = req.params;
-  const { _id } = req.user
-getEvent()
+  console.log(date);
+getEventsByDate(date)
     .then((data) => {
       res.status(201).send(data);
     })

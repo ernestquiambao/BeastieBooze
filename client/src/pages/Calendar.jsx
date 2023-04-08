@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import ReactModal from 'react-modal'
 import Calendar from 'react-calendar';
-//import Times from './Time.jsx';
+import Times from './Time.jsx';
 import { useForm } from 'react-hook-form'
 //import { yupResolver } from '@hookform/resolvers/yup';
 //import * as yup from 'yup';
 import axios from 'axios';
 import moment from 'moment';
+import TodayEvent from './EventsToday.jsx';
 
 // const schema = yup.object().shape({
 //   name: yup.string().required(),
@@ -17,8 +18,7 @@ import moment from 'moment';
 //   location: yup.string().required()
 // });
 const time = []
-
-
+//this is to create the start time and end time when creating the event form
 for(let hour = 0; hour < 24; hour++) {
    time.push(moment({ hour }).format('h:mm A'));
    time.push(
@@ -31,25 +31,36 @@ for(let hour = 0; hour < 24; hour++) {
 }
 
 function eventCalendar(){
-
+// current date for the calendar
   const [currDate, setDate] = useState(new Date())
-
-  const [eventDate, setEventDate] = useState(moment().format("YYYY-MM-DD"))
-
+// controls the calendar click
   const [entryDate, setEntryDate] = useState(false);
-
+// controls the state of the pop up
   const [isOpen, setIsOpen] = useState(false);
-
+//callbacks required for the form to work
   const { register, handleSubmit } = useForm();
 
+  const [eventDate, setEventDate] = useState(moment().format("YYYY-MM-DD"))
+//is the current day for the get request
+  const [eventsListDate, setEventsListDate] = useState(moment().format("YYYY-MM-DD"));
+// events list for the current day
+  const [eventsList, setEventsList] = useState([]);
+// event types
   const types = ['party', 'date drinks', 'business drinks', 'special occasion drinks', 'drinks with friends', 'holiday drinks', 'bar crawl drinks', 'just need an alone drink']
 
-console.log(currDate);
 
+
+
+
+
+
+
+
+// this opens the popup to create an event
   const eventCreate = () => {
     setIsOpen(true);
   }
-
+// when a form is submitted this creates an event for a certain day selected in the form
   const onSubmit = data => {
     axios.post('/routes/calendar/events', data)
       .then((data) => {
@@ -62,21 +73,63 @@ console.log(currDate);
       })
   }
 
+
+  // this converts the Date object into a string to be used for the axios get request to get a date
+const changeDateformat = () => {
+  let today = currDate;
+  let dd = today.getDate();
+  let mm = today.getMonth()+1;
+  const yyyy = today.getFullYear();
+  if(dd < 10)
+  {
+      dd=`0${dd}`;
+  }
+  if(mm < 10)
+  {
+      mm=`0${mm}`;
+  }
+  today = `${yyyy}-${mm}-${dd}`;
+setEventsListDate(today);
+}
+
+console.log(eventsListDate);
+// this sets the date for the event form
   const handleEventDate = (newDate) =>{
     setEventDate(newDate);
     }
 
-  const eventList = (date) => {
+// this pulls a list of all of the events that occur on today's date
+    const eventList = () => {
+    axios.get(`routes/calendar/events/${eventsListDate}`)
+    .then((response) => {
+      setEventsList(response.data);
+    })
+    .catch((err) => {
+      console.error('unable to get calendar day', err);
+    })
+}
 
+// delete events for the current day
+const deleteEventList = () => {
+  axios.delete(`routes/calendar/events/${eventsListDate}`)
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((err) => {
+    console.error('unable to delete calendar day', err);
+  })
+}
 
- }
 
 
   return (
     <div className="calendar">
       <h4 className="header">Calendar</h4>
       <div className="calendar-container">
-        <Calendar onChange={setDate} value={currDate} onClickDay={() => setEntryDate(true)}/>
+        <Calendar onChange={setDate}
+          value={currDate}
+          onClickDay={() => {
+            setEntryDate(true)}}/>
       </div>
       {currDate.length > 0 ? (
     <p>
@@ -88,11 +141,11 @@ console.log(currDate);
   </p>
          ) : (
   <p>
-     <span>Default selected date:</span>{currDate.toDateString()}
+     <span> Selected date: </span>{currDate.toDateString()}
   </p>
          )
   }
-  <button onClick={eventCreate}> Create an Event</button>
+  <button onClick={eventCreate}> Create an Event For Today </button>
       <ReactModal
         isOpen={isOpen}
         contentLabel="Example Modal"
@@ -146,7 +199,11 @@ console.log(currDate);
       </ReactModal>
       <div>
         <button onClick={eventList}> Show Today's Events </button>
-
+        <button onClick={deleteEventList}> Delete Today's Events </button>
+        <Times/>
+        <div className='todays-events-data'>
+        </div>
+        { eventsList.map(event => <TodayEvent event={event} key={event.name} />)}
         </div>
 </div>
 
