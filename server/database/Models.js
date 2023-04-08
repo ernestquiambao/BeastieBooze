@@ -38,6 +38,7 @@ const UserSchema = new mongoose.Schema({
   imageUrl: String,
   favorites: [],
   creations: [],
+  latlng: [],
 });
 
 const DrinkSchema = new mongoose.Schema({
