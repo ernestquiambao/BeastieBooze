@@ -31,11 +31,11 @@ brewRouter.get('/api', (req, res) => {
 brewRouter.post('/db', (req, res) => {
   console.log(req)
   const { name, breweryList } = req.body
-  const { _id } = req.user;
-  BarCrawl.replaceOne({ name: name, user: _id}, {
+  // const { _id } = req.user;
+  BarCrawl.replaceOne({ name: name}, {
     name: name,
     breweryList: breweryList,
-    user: _id
+    // user: _id
   },
   {upsert: true})
   .then(() => {
