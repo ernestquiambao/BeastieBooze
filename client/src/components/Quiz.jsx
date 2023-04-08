@@ -76,10 +76,10 @@ const handleQuizSubmit = () => {
     <div className="Quiz">
 
       {/* 1. Header */}
-    <h1>Alcohol Quiz 🥃</h1>
+    <h1 style={{textAlign: 'center'}}>Alcohol Quiz 🥃</h1>
       {/* 2. Current Score & Previous */}
-    <h2>Current Score: {score}</h2>
-    <h2>Previous Score: {previousScore}</h2>
+    <h2 style={{textAlign: 'center'}}>Current Score: {score}</h2>
+    <h2 style={{textAlign: 'center'}}>Previous Score: {previousScore}</h2>
 
     { showFinalResults ? (
       /* 4. Final Results */
@@ -101,12 +101,12 @@ const handleQuizSubmit = () => {
       /* 3. Question Card */
       <div className='question-card'>
         <h2>Question {currentQuestion + 1} out of {questions.length }</h2>
-        <h3 className='question-text'>{questions[currentQuestion].text}</h3>
+        <h3 className='question-text' style={{textAlign: 'center', fontSize: "2.25rem"}}>{questions[currentQuestion].text}</h3>
 
       <ul>
         {questions[currentQuestion].options.map((option) => {
           return (
-            <li onClick={() => optionClicked(option.isCorrect)} key={option.id}>{option.text}</li>
+            <li  style={{ margin: '.5rem', background: "darkgray", padding: "1rem", border: "3px solid white", borderRadius: "1.2rem", fontSize: "1.2rem", listStyle: "none" }}onClick={() => optionClicked(option.isCorrect)} key={option.id}>{option.text}</li>
           )
         })}
       </ul>
@@ -118,3 +118,4 @@ const handleQuizSubmit = () => {
 }
 
 export default Quiz;
+
