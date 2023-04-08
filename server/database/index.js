@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { DB_USERNAME, DB_PASSWORD } = process.env;
-const mongoUri = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@pimpc.makmqkr.mongodb.net/?retryWrites=true`
+const mongoUri = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cocktail.jnerzrh.mongodb.net/?retryWrites=true`
 
 console.log({ DB_USERNAME, DB_PASSWORD });
 
