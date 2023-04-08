@@ -60,10 +60,10 @@ function Times() {
 
 
 
-
-  const toggleCreate = () => {
-    setToggle(!toggle)
-    }
+// was thinking about using this for a toggle
+  // const toggleCreate = () => {
+  //   setToggle(!toggle)
+  //   }
 
 
   const getEvents = () => {
@@ -77,23 +77,25 @@ function Times() {
     })
 }
 
-const saveEventChanges = () => {
 
-  axios.put(`routes/calendar/events/${eventId}`, {
-    name: name,
-    type: eventType,
-    description: description,
-    endTime: endTime,
-    location: location,
-    invited: invites
-  })
-  .then((response) => {
-    console.log('successful PUT', response);
-})
-.catch((err) => {
-  console.error('unsuccessful PUT', err);
-});
-};
+// wil handle changes to a single event
+// const saveEventChanges = () => {
+
+//   axios.put(`routes/calendar/events/${eventId}`, {
+//     name: name,
+//     type: eventType,
+//     description: description,
+//     endTime: endTime,
+//     location: location,
+//     invited: invites
+//   })
+//   .then((response) => {
+//     console.log('successful PUT', response);
+// })
+// .catch((err) => {
+//   console.error('unsuccessful PUT', err);
+// });
+// };
 
 // const handleInputChange = () => {
 
@@ -118,18 +120,18 @@ const deleteEventList = () => {
 }
 
 
+// to handle deletion of a single event
+// const handleEventDelete = () => {
 
-const handleEventDelete = () => {
+//   axios.delete(`routes/calendar/events/`)
+//   .then((response) => {
+//     console.log(response);
+//   })
+//   .catch((err) => {
+//     console.error('unable to delete calendar day', err);
+//   })
 
-  axios.delete(`routes/calendar/events/`)
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.error('unable to delete calendar day', err);
-  })
-
-}
+// }
 
 const handleChangeDate = (newDate) =>{
   setEventsDate(newDate);
@@ -184,8 +186,8 @@ return (
       <EditText className="today-event-data" placeholder={event.endTime} onChange={e => setEndTime(e.target.value)}/>
       <EditText className="today-event-data" defaultValue={event.location} onChange={e => setLocation(e.target.value)} />
       <EditText className="today-event-data" defaultValue={event.invites} onChange={e => setInvites(e.target.value)}/>
-      <button onClick={saveEventChanges}> Save Edits</button>
-      <button onClick={handleEventDelete}> Delete Event</button>
+      {/* <button onClick={saveEventChanges}> Save Edits</button>
+      <button onClick={handleEventDelete}> Delete Event</button> */}
       </div>
       })}
   </div>
