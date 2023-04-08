@@ -3,6 +3,62 @@ import players from '../../fakePlayers';
 import { UserContext } from '../userContext';
 import axios from 'axios';
 
+export default function LeaderBoard() {
+  const { userInfo } = useContext(UserContext);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data } = await axios.get(`/routes/quiz/user/${userInfo.googleId}`);
+      setUsers([data]);
+    };
+
+    fetchUser();
+  }, [userInfo.googleId]);
+
+  const renderScores = (scores) => {
+    // Sort scores in descending order
+    scores.sort((a, b) => b - a);
+
+    // Keep only the top 5 scores
+    const top5 = scores.slice(0, 5);
+
+    return top5.map((score, index) => (
+      <div key={index}>
+        {index + 1}. {score}
+      </div>
+    ));
+  };
+
+  return (
+    <div>
+      <h1>Leaderboard</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Top 5 Scores</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={user._id}>
+              <td>{index + 1}</td>
+              <td>{user.username}</td>
+              <td>
+                <img src={user.imageUrl} alt={user.username} />
+              </td>
+              <td>{renderScores(user.scores)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 
 /*
 NOTES for leaderboard
@@ -32,46 +88,3 @@ DATABASE IDEAs:
 * want to display the top 10 high scores of users* => requires AMENDING MODELS
 
 */
-
-export default function LeaderBoard() {
-
-  const { userInfo } = useContext(UserContext);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await axios.get(`/routes/quiz/user/${userInfo.googleId}`);
-      setUsers([data]);
-    };
-
-    fetchUser();
-  }, [userInfo.googleId]);
-
-  return (
-    <div>
-      <h1>Leaderboard</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Place</th>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user._id}>
-              <td>{index + 1}</td>
-              <td>{user.username}</td>
-              <td>
-                <img src={user.imageUrl} alt={user.username} />
-              </td>
-              <td>{user.scores[0]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}

@@ -22,5 +22,27 @@ quizRouter.get('/user/:googleId', async (req, res) => {
   }
 });
 
+quizRouter.post('/user/scores', async (req, res) => {
+  const { googleId, score } = req.body;
+
+  try {
+    const user = await User.findOne({ googleId });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.scores.push(score);
+    user.scores.sort((a, b) => b - a);
+    user.scores = user.scores.slice(0, 5);
+    await user.save();
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 module.exports = { quizRouter };

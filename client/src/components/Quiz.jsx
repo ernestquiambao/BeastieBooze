@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import questions from '../../questions'
 import LeaderBoard from './Leaderboard';
+import axios from 'axios';
+import { UserContext } from '../userContext';
 
 function Quiz() {
 
@@ -11,11 +13,16 @@ const wrongAnswer = new Audio("https://www.fesliyanstudios.com/play-mp3/4031");
 
 // Properties
 
+const { userInfo } = useContext(UserContext);
+
   const [showFinalResults, setShowFinalResults ] = useState(false);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [drink, setDrink] = useState('');
   let [previousScore, setPreviousScore] = useState(0)
+
+  const [userScore, setUserScore] = useState(0);
+
 
 // Helper Functions
 
@@ -49,6 +56,20 @@ const restartGame = () => {
   setCurrentQuestion(0)
   setShowFinalResults(false)
   setDrink('')
+  handleQuizSubmit();
+}
+
+const handleQuizSubmit = () => {
+  axios.post('/routes/quiz/user/scores', {
+    googleId: userInfo.googleId,
+    score: score,
+  })
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }
 
   return (
@@ -73,7 +94,6 @@ const restartGame = () => {
           <h1>
           {drink}
           </h1>
-          <button>Add Score to Leader Board</button>
       </div>
       )
 
