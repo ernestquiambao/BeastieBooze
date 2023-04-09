@@ -13,6 +13,20 @@ const GoogleMapDirections = () => {
     height: '800px',
   };
 
+  const center = {
+    lat: 37.7749,
+    lng: -122.4194,
+  };
+
+  const directionsCallback = (response, status) => {
+    if (status === 'OK') {
+      setDirections(response);
+      setIsLoading(false)
+    } else {
+      setError('Directions request failed due to ' + status);
+    }
+    setIsLoading(false);
+  };
   const options = {
     disableDefaultUI: true,
     zoomControl: true,
