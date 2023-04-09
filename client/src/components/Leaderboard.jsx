@@ -1,5 +1,72 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import players from '../../fakePlayers';
+import { UserContext } from '../userContext';
+import axios from 'axios';
+import 'regenerator-runtime/runtime'
+
+export default function LeaderBoard() {
+  const { userInfo } = useContext(UserContext);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUser = () => {
+      axios.get(`/routes/quiz/user/${userInfo.googleId}`)
+        .then((response) => {
+          console.log('yay');
+          setUsers([response.data]);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+  
+    fetchUser();
+  }, [userInfo.googleId]);
+
+  const renderScores = (scores) => {
+    // Sort scores in descending order
+    scores.sort((a, b) => b - a);
+
+    // Keep only the top 5 scores
+    const top5 = scores.slice(0, 5);
+
+    return top5.map((score, index) => (
+      <div key={index}>
+        {index + 1}. {score}
+      </div>
+    ));
+  };
+
+  return (
+    <div style={{textAlign: 'center'}}>
+      <h1 style={{margin: "1.5rem"}}>Leaderboard</h1>
+      <table>
+        <thead>
+          <tr>
+            <th style={{fontSize: "1.5rem"}}>Place</th>
+            <th style={{fontSize: "1.5rem"}}>Name</th>
+            <th style={{fontSize: "1.5rem"}}>Image</th>
+            <th style={{fontSize: "1.5rem"}}>Top 5 Scores</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={user._id}>
+              <td style={{width: '25vw', fontSize: "1.2rem", fontWeight: 'bold'}} >{index + 1}</td>
+              <td style={{width: '25vw', fontSize: "1.2rem", fontWeight: 'bold'}}>{user.username}</td>
+              <td style={{width: '25vw', fontSize: "1.2rem"}}>
+                <img src={user.imageUrl} alt={user.username} style={{borderRadius: "2rem"}}/>
+              </td>
+              <td style={{width: '25vw', fontSize: "1.2rem", fontWeight: 'bold'}}>{renderScores(user.scores)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+
 /*
 NOTES for leaderboard
 
@@ -28,41 +95,3 @@ DATABASE IDEAs:
 * want to display the top 10 high scores of users* => requires AMENDING MODELS
 
 */
-
-export default function LeaderBoard() {
-  return (
-    <div>
-    <div className='card'>
-      <div className='card-body'>
-        <table className='table table-borderless'>
-          <col style={{ width: '10%' }} />
-          <col style={{ width: '80%', textAlign: 'center' }} />
-          <col style={{ width: '10%' }} />
-          <tbody>
-            {players.map((player, index) => {
-              return (
-                <tr>
-                  <td className='border-0'> <b>{index + 1 === 1 ? "1st" : index + 1 === 2 ? "2nd" : index + 1 === 3 ? "3rd" : index + 1 + 'th'}</b></td>
-                  <td className='border-0'>
-                    <div className='d-flex'>
-                    <div>
-                      <img src={player.imgSrc}  style={{width: '50px', height: '40px'}} alt="image-thumbnail" />
-                        <span>
-                          {player.name}
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className='border-0'>
-                    <b>{player.score }</b>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  )
-}

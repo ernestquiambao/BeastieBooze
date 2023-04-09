@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import questions from '../../questions'
 import LeaderBoard from './Leaderboard';
+import axios from 'axios';
+import { UserContext } from '../userContext';
 
 function Quiz() {
 
@@ -11,11 +13,16 @@ const wrongAnswer = new Audio("https://www.fesliyanstudios.com/play-mp3/4031");
 
 // Properties
 
+const { userInfo } = useContext(UserContext);
+
   const [showFinalResults, setShowFinalResults ] = useState(false);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [drink, setDrink] = useState('');
   let [previousScore, setPreviousScore] = useState(0)
+
+  const [userScore, setUserScore] = useState(0);
+
 
 // Helper Functions
 
@@ -49,16 +56,30 @@ const restartGame = () => {
   setCurrentQuestion(0)
   setShowFinalResults(false)
   setDrink('')
+  handleQuizSubmit();
+}
+
+const handleQuizSubmit = () => {
+  axios.post('/routes/quiz/user/scores', {
+    googleId: userInfo.googleId,
+    score: score,
+  })
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }
 
   return (
     <div className="Quiz">
 
       {/* 1. Header */}
-    <h1>Alcohol Quiz 🥃</h1>
+    <h1 style={{textAlign: 'center'}}>Alcohol Quiz 🥃</h1>
       {/* 2. Current Score & Previous */}
-    <h2>Current Score: {score}</h2>
-    <h2>Previous Score: {previousScore}</h2>
+    <h2 style={{textAlign: 'center'}}>Current Score: {score}</h2>
+    <h2 style={{textAlign: 'center'}}>Previous Score: {previousScore}</h2>
 
     { showFinalResults ? (
       /* 4. Final Results */
@@ -73,7 +94,6 @@ const restartGame = () => {
           <h1>
           {drink}
           </h1>
-          <button>Add Score to Leader Board</button>
       </div>
       )
 
@@ -81,12 +101,12 @@ const restartGame = () => {
       /* 3. Question Card */
       <div className='question-card'>
         <h2>Question {currentQuestion + 1} out of {questions.length }</h2>
-        <h3 className='question-text'>{questions[currentQuestion].text}</h3>
+        <h3 className='question-text' style={{textAlign: 'center', fontSize: "2.25rem"}}>{questions[currentQuestion].text}</h3>
 
       <ul>
         {questions[currentQuestion].options.map((option) => {
           return (
-            <li onClick={() => optionClicked(option.isCorrect)} key={option.id}>{option.text}</li>
+            <li  style={{ margin: '.5rem', background: "darkgray", padding: "1rem", border: "3px solid white", borderRadius: "1.2rem", fontSize: "1.2rem", listStyle: "none" }}onClick={() => optionClicked(option.isCorrect)} key={option.id}>{option.text}</li>
           )
         })}
       </ul>
@@ -98,3 +118,4 @@ const restartGame = () => {
 }
 
 export default Quiz;
+

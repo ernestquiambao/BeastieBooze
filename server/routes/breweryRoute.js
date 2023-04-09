@@ -2,11 +2,11 @@ const { Router } = require('express');
 const dotenv = require('dotenv');
 const axios = require('axios');
 // const { addBarCrawl } = require('../database/helpers');
-const { BarCrawl } = require('../database/Models')
+const { BarCrawl, User } = require('../database/Models')
 
 const brewRouter = Router();
 
-brewRouter.get('/breweries', (req, res) => {
+brewRouter.get('/api', (req, res) => {
   const { by_city } = req.query;
 
   const options = {
@@ -28,12 +28,14 @@ brewRouter.get('/breweries', (req, res) => {
 });
 
 
-brewRouter.post('/breweries', (req, res) => {
-  console.log(req.body)
+brewRouter.post('/db', (req, res) => {
+  console.log(req)
   const { name, breweryList } = req.body
-  BarCrawl.replaceOne({ name: name }, {
+  // const { _id } = req.user;
+  BarCrawl.replaceOne({ name: name}, {
     name: name,
     breweryList: breweryList,
+    // user: _id
   },
   {upsert: true})
   .then(() => {
@@ -42,6 +44,25 @@ brewRouter.post('/breweries', (req, res) => {
   .catch((err) => {
     console.log('ERROR POSTING', err);
     res.sendStatus(500);
+  })
+
+
+  brewRouter.get('/db', (req, res) => {
+    // console.log(req);
+    BarCrawl.find({})
+    .then((crawls) => {
+      res.send(crawls);
+    })
+    .catch((err) => {
+      console.log('Failed GET', err)
+      res.sendStatus(500);
+    })
+  })
+
+  brewRouter.delete('/db', (req, res) => {
+    console.log(req)
+
+    BarCrawl.deleteOne()
   })
 
 

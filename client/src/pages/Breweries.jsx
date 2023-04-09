@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   GoogleMap,
   withScriptjs,
@@ -17,16 +17,15 @@ const Breweries = () => {
   const [barCrawl, setBarCrawl] = useState([]);
   const [mapPoint, setMapPoint] = useState(null);
   const [crawlName, setCrawlName] = useState(null);
-
+  const [seeAllCrawls, setSeeAllCrawls] = useState([]);
+  const [selectedCrawl, setSelectedCrawl] = useState([]);
 
   const requestHandler = () => {
     axios
-      .get('/routes/beer/breweries', {
+      .get('/routes/breweries/api', {
         params: { by_city: searchedCity },
       })
       .then(({ data }) => {
-        // console.log('Successful GET', data);/
-
         let updatedData = data.map((item) => {
           if (
             item.hasOwnProperty('latitude') &&
@@ -51,81 +50,174 @@ const Breweries = () => {
   };
 
   const handleClick = () => {
-
     if (eachBrewery.hasOwnProperty('coordinates')) {
       delete 'coordinates';
     }
     setBarCrawl([eachBrewery, ...barCrawl]);
   };
 
+  const saveBarCrawl = () => {
+    axios
+      .post('/routes/breweries/db', {
+        name: crawlName,
+        breweryList: barCrawl,
+      })
+      .then(() => {})
+      .catch((err) => {
+        console.log('Could not POST', err);
+      });
+  };
 
-const saveBarCrawl = () => {
-    axios.post('/routes/beer/breweries', {
-      name: crawlName,
-      breweryList: barCrawl
-    })
-}
+  const findBarCrawls = () => {
+    axios
+      .get('/routes/breweries/db')
+      .then(({ data }) => {
+        setSeeAllCrawls(data);
+      })
+      .catch((err) => {
+        console.log('Failed to GET from DB', err);
+      });
+  };
+
+  const deleteCrawl = () => {
+    axios.delete('/routes/breweries.db')
+      .then(() => {
+        setSelectedCrawl([]);
+      })
+      .catch((err) => {
+        console.log('Could not DELETE crawl');
+      })
+  }
+
+  const clearFields = () => {
+    document.getElementById('city-id').value = '';
+    document.getElementById('bar-crawl').value = '';
+  };
+
+  useEffect(() => {
+    findBarCrawls();
+  }, [seeAllCrawls]);
 
   return (
     <div>
-      <div>
-        <div>
-          <h3>Bar Crawl</h3>
-        </div>
-        <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginRight: '20px', marginLeft: '20px' }}>
+        <div id='1'>
           <div>
-            <label className="crawl-label">Name Your Crawl:</label>
-            <input type="text" onChange={event => setCrawlName(event.target.value)}></input>
-            <button type="button" onClick={() => saveBarCrawl()}>Save Bar Crawl</button>
+          <h3>Find Breweries</h3>
           </div>
-        {eachBrewery && (
           <div>
-          {barCrawl.map((bar, index) => (
-            <div key={index} >
               <div>
-                <h5>{bar.name}</h5>
-                <p>{bar.address_1}</p>
-                <p>{bar.city}</p>
-                <p>{bar.postal_code}</p>
+                <label className='crawl-label'>Search A City: </label>
+                <input
+                  id='city-id'
+                  type='text'
+                  onChange={(event) => setCity(event.target.value)}
+                ></input>
               </div>
-            </div>
-          ))}
+              <div>
+                <button
+                  type='button'
+                  onClick={() => {
+                    requestHandler(), clearFields();
+                  }}
+                >
+                  Beer Me!
+                </button>
+              </div>
+
+              <div className='brewery'>
+                {breweries.map((brewery, index) => (
+                  <ul key={brewery.id}>
+                    {brewery.name}
+                    <li>{brewery.address_1}</li>
+                    <li>{brewery.city}</li>
+                    <li>{brewery.postal_code}</li>
+                    <li>{brewery.phone}</li>
+                  </ul>
+                ))}
+              </div>
+          </div>
         </div>
-        )}
-      </div>
 
-      </div>
-
-      <div>
-        <h3>Breweries</h3>
-      </div>
-
-      <div>
-        <h3>Find Breweries</h3>
-        <div>
+        <div id='2'>
+          <div>
+            <h3>Make A Bar Crawl</h3>
+          </div>
           <div>
             <div>
-              <label>Search City</label>
-              <input onChange={(event) => setCity(event.target.value)}></input>
-            </div>
-            <div>
-              <button type='button' onClick={(event) => requestHandler(event)}>
-                Find Breweries
+              <label className='crawl-label'>Name Your Crawl: </label>
+              <input
+                id='bar-crawl'
+                type='text'
+                onChange={(event) => setCrawlName(event.target.value)}
+              ></input>
+              </div>
+              <div>
+              <button
+                type='button'
+                onClick={() => {
+                  saveBarCrawl(), clearFields();
+                }}
+              >
+                Save Bar Crawl
               </button>
             </div>
-            <div className='brewery'>
-              {breweries.map((brewery, index) => (
-                <ul key={brewery.id}>
-                  {brewery.name}
-                  {/* <li>{brewery.brewery_type}</li> */}
-                  <li>{brewery.address_1}</li>
-                  <li>{brewery.city}</li>
-                  <li>{brewery.postal_code}</li>
-                  <li>{brewery.phone}</li>
-                  {/* <li>{brewery.website_url}</li> */}
-                </ul>
-              ))}
-            </div>
+            {eachBrewery && (
+              <div>
+                {barCrawl.map((bar, index) => (
+                  <div key={index}>
+                    <div>
+                      <h5>{bar.name}</h5>
+                      <p>{bar.address_1}</p>
+                      <p>{bar.city}</p>
+                      <p>{bar.postal_code}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div id='3'>
+          <h3>Find Bar Crawl</h3>
+
+          <select
+            onChange={(event) =>
+              setSelectedCrawl(
+                seeAllCrawls.filter(
+                  (crawl) => crawl.name === event.target.value
+                )
+              )
+            }
+          >
+            <option>Find Crawl</option>
+            {seeAllCrawls.map((crawl) => (
+              <option key={crawl._id} value={crawl.name}>
+                {crawl.name}
+              </option>
+            ))}
+          </select>
+
+          {selectedCrawl.length > 0 && selectedCrawl[0].breweryList ? (
+            selectedCrawl[0].breweryList.map((brewery) => {
+
+              return (
+                <div>
+                  <h5>{brewery.name}</h5>
+                  <p>{brewery.address_1}</p>
+                  <p>{brewery.city}</p>
+                  <p>{brewery.postal_code}</p>
+                </div>
+
+              );
+
+            })
+          ) : (
+            <div></div>
+          )}
+          <div>
+            <button type='button' onClick={() => deleteCrawl()}>Delete Crawl</button>
           </div>
         </div>
       </div>
@@ -144,18 +236,14 @@ const saveBarCrawl = () => {
           {breweries.map((brewery) => (
             <Marker
               position={brewery.coordinates}
-
               onMouseOver={() => {
-                setMapPoint(mapPoint === null ? brewery : null)
-                setEachBrewery(brewery)
-              }
-
-              }
+                setMapPoint(mapPoint === null ? brewery : null);
+                setEachBrewery(brewery);
+              }}
             />
           ))}
 
-
-{mapPoint && (
+          {mapPoint && (
             <InfoWindow
               onCloseClick={() => {
                 setEachBrewery(null);
@@ -167,11 +255,18 @@ const saveBarCrawl = () => {
                 <p>{mapPoint.address_1}</p>
                 <p>{mapPoint.city}</p>
                 <p>{mapPoint.postal_code}</p>
-                <button type="button" onClick={() => handleClick()}> Add to Bar Crawl</button>
+                <button
+                  type='button'
+                  onClick={() => {
+                    handleClick(), setMapPoint(null);
+                  }}
+                >
+                  {' '}
+                  Add to Bar Crawl
+                </button>
               </div>
             </InfoWindow>
           )}
-
         </GoogleMap>
       </div>
     </div>
@@ -181,3 +276,5 @@ const saveBarCrawl = () => {
 const WrappedBreweries = withScriptjs(withGoogleMap(Breweries));
 
 export default WrappedBreweries;
+
+// export default Breweries;

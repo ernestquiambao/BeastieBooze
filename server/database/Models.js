@@ -38,6 +38,10 @@ const UserSchema = new mongoose.Schema({
   imageUrl: String,
   favorites: [],
   creations: [],
+  scores: {
+    type: [String], default:'0' // THIS IS WHAT I NEED. START EVERYBODY OFF WITH 0/20
+  },
+  latlng: [],
 });
 
 const DrinkSchema = new mongoose.Schema({
@@ -71,6 +75,8 @@ invited: Array,
 const BarCrawlSchema = new mongoose.Schema({
   name: String,
   breweryList: Array,
+  date: String,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 
 const User = mongoose.model('User', UserSchema);
@@ -111,14 +117,6 @@ const addCalEntry = async (entry) => {
 const getCalEntry = async () => {
   return await CalEntry.find({}).exec();
 };
-
-// const addBrewery = async (brewery) => {
-//   const newBrewery = new BarCrawl({
-//     name: brewery.name,
-//     breweryList: brewery.breweryList,
-//   })
-//   await newBrewery.save();
-// }
 
 module.exports = {
   User,
