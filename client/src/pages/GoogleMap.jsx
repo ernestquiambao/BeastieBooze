@@ -18,16 +18,7 @@ const GoogleMapDirections = () => {
     lng: -122.4194,
   };
 
-  const directionsCallback = (response, status) => {
-    if (status === 'OK') {
-      setDirections(response);
-      setIsLoading(false)
-    } else {
-      setError('Directions request failed due to ' + status);
-    }
-    setIsLoading(false);
-  };
-  const options = {
+    const options = {
     disableDefaultUI: true,
     zoomControl: true,
   };
